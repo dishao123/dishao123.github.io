@@ -14,7 +14,10 @@
             {
                 "name": "so",
                 "url": "https://so.com/s?q="
-            }
+            },
+            {
+                "name": "gh",
+                "url": "https://github.com/search?q="
         ]
     }
 }
