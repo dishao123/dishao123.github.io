@@ -1,0 +1,20 @@
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "list": [
+            {
+                "name": "bd",
+                "url": "https://baidu.com/s?wd="
+            },
+            {
+                "name": "gg",
+                "url": "https://google.com?wd="
+            },
+            {
+                "name": "so",
+                "url": "https://so.com/s?q="
+            }
+        ]
+    }
+}
