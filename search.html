@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>易用搜索引擎</title>
+    <style>
+      *{
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        background-color: #46b900;
+        background-image: url(./bg1.jpg);
+        background-size: 100%
+      }
+      a {
+        text-decoration: none;
+      }
+      li {
+        list-style: none;
+      }
+      .search {
+        width: 86%;
+        
+        padding: 20px 15px;
+        margin: 26px auto;
+        background-color: rgba(255,255,255,.3);
+        border-radius: 6px;
+      }
+      .search-box {
+        height: 46px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .search-box input {
+        width: 72%;
+        border: 1px solid #006dff;
+        text-indent: 15px;
+        border-radius: 6px 0 0 0px;     
+        background-color: rgba(255,255,255,0.5);   
+      }
+      .search-box button {
+        width: 28%;
+        border: 1px solid #006dff;
+        background-color: #006dff;
+        color: #fff;
+        border-radius: 0 6px 0px 0;
+      }
+      .search-info {
+        padding: 8px 12px 12px;
+        border: 1px solid #fff;
+        border-radius: 8px;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+      h2 {
+        text-align: center;
+        margin-top: 40px;
+        font-weight: 400;
+      }
+      .center {
+        text-align: center;
+      }
+      .nav {
+        border: 1px solid #006dff;
+        border-top: 0;
+        margin: 0px auto 20px;
+        border-radius: 0 0 6px 6px;
+      }
+      .nav ul{
+        display: flex;
+        justify-content: space-between;
+        padding: 12px;
+        color: #fff;
+      }
+      .nav ul .active {
+        color: #006dff;
+      }
+    </style>
+  </head>
+  <body>	
+    <section><h2>欢迎使用易用搜索</h2></section>
+    <section class="search">
+       <div class="search-info">
+          <h3 class="center">使用方法</h3>
+          <p>可以直接在搜索框中输入"百度"或者"搜狗" 等等搜索引擎平台都可以，(以上搜索类型也可以用英语替代)，然后空格输入要搜索的内容</p>
+       </div>
+       <div class="search-box">
+          <input type="search" id="searchs" placeholder="请输入要搜索的内容"/>
+          <button id="btns">立即搜索</button>
+       </div>
+       <div class="nav">
+         <ul>
+            <li class="active">百度</li>
+            <li>搜狗</li>
+            <li>谷歌</li>
+            <li>神马</li>
+            <li>头条</li>
+            <li>Github</li>
+         </ul>
+       </div>
+    </section>
+	
+    <script src="https://lib.baomitu.com/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+       var str = "";
+       $(".nav ul li").click(function (){
+          $(".nav ul li").removeClass("active");
+          $(this).addClass("active");
+          str = $(this).text() + " ";    
+       });
+       $("#btns").click(function (){                   
+          str += $("#searchs").val();          
+          var vals = str.split(/\s+/);                  
+          if (vals[0] == "bd" || vals[0] == "百度"){
+            location.href = "https://www.baidu.com/s?wd=" + vals[1];
+          }
+          if (vals[0] == "sg" || vals[0] == "搜狗") {
+            location.href = "http://www.sogou.com/web?query=" + vals[1];
+          }
+           if (vals[0] == "gg" || vals[0] == "谷歌") {
+            location.href = "https://g.vovososo.com/search?q=" + vals[1];
+          }
+          if (vals[0] == "sm" || vals[0] == "神马") {
+            location.href = "https://m.sm.cn/s?q=" + vals[1];
+          }
+          if (vals[0] == "tt" || vals[0] == "头条") {
+            location.href = "https://so.toutiao.com/search/?keyword=" + vals[1];
+          }
+          
+          if (vals[0] == "gb" || vals[0] == "Github"){
+            location.href = "https://github.com/search?q=" + vals[1];
+          }if(vals.length == 1) {
+            location.href = "https://www.baidu.com/s?wd=" + vals;
+          }
+          
+       });
+    </script>
+  </body>
+</html>
