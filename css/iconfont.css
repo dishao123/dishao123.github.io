@@ -1,0 +1,124 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4066122 */
+  src: 
+       url('icont-font/iconfont.woff2') format('woff2'),
+       url('icont-font/iconfont.woff') format('woff'),
+       url('icont-font/iconfont.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-lovetaoxin:before {
+  content: "\e6af";
+}
+
+.icon-love1:before {
+  content: "\e60b";
+}
+
+.icon-love2:before {
+  content: "\e69d";
+}
+
+.icon-money:before {
+  content: "\e62c";
+}
+
+.icon-money-asp:before {
+  content: "\e82f";
+}
+
+.icon-money-currency-converter:before {
+  content: "\e830";
+}
+
+.icon-money-rmb-symbol:before {
+  content: "\e831";
+}
+
+.icon-money-red-packet-fill:before {
+  content: "\e832";
+}
+
+.icon-money-funds:before {
+  content: "\e833";
+}
+
+.icon-ds:before {
+  content: "\e603";
+}
+
+.icon-dianzan:before {
+  content: "\e67e";
+}
+
+.icon-dianzan11:before {
+  content: "\e6f4";
+}
+
+.icon-dianzan2:before {
+  content: "\e6df";
+}
+
+.icon-dianzan1:before {
+  content: "\e6ff";
+}
+
+.icon-dianzan-yidianzan:before {
+  content: "\e633";
+}
+
+.icon-dianzan-yidianzan1:before {
+  content: "\e612";
+}
+
+.icon-dianzanyidianzan:before {
+  content: "\e67c";
+}
+
+.icon-dz1:before {
+  content: "\e642";
+}
+
+.icon-dz2:before {
+  content: "\e792";
+}
+
+.icon-dianzan-tianchong:before {
+  content: "\e628";
+}
+
+.icon-top:before {
+  content: "\e602";
+}
+
+.icon-dianzan5:before {
+  content: "\e705";
+}
+
+.icon-ds2:before {
+  content: "\e611";
+}
+
+.icon-ds4:before {
+  content: "\e68b";
+}
+
+.icon-dianzan3:before {
+  content: "\e791";
+}
+
+.icon-ds3:before {
+  content: "\e600";
+}
+
+.icon-dianzan4:before {
+  content: "\e601";
+}
+

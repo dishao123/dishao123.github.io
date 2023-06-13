@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>小骏博客</title>
+    <link>https://blog.auz.im/</link>
+    
+    <image>
+      <url>https://blog.auz.im/icon.png</url>
+      <title>小骏博客</title>
+      <link>https://blog.auz.im/</link>
+    </image>
+    
+    <atom:link href="https://blog.auz.im/rss2.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>一个什么都有的博客</description>
+    <pubDate>Tue, 13 Jun 2023 04:55:08 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>国内可用静态CDN加速服务汇总</title>
+      <link>https://blog.auz.im/posts/cdn.html</link>
+      <guid>https://blog.auz.im/posts/cdn.html</guid>
+      <pubDate>Sun, 04 Jun 2023 01:00:00 GMT</pubDate>
+      
+      <description>目前国内依然可用的静态CDN加速服务汇总</description>
+      
+      
+      
+      
+      <category domain="https://blog.auz.im/categories/CDN/">CDN</category>
+      
+      
+      <category domain="https://blog.auz.im/tags/CDN/">CDN</category>
+      
+      <category domain="https://blog.auz.im/tags/Jsdelivr/">Jsdelivr</category>
+      
+      <category domain="https://blog.auz.im/tags/CDNJS/">CDNJS</category>
+      
+      <category domain="https://blog.auz.im/tags/%E9%9D%99%E6%80%81/">静态</category>
+      
+      <category domain="https://blog.auz.im/tags/%E5%8A%A0%E9%80%9F/">加速</category>
+      
+      <category domain="https://blog.auz.im/tags/%E5%8F%8D%E4%BB%A3/">反代</category>
+      
+      <category domain="https://blog.auz.im/tags/%E9%95%9C%E5%83%8F/">镜像</category>
+      
+      
+      <comments>https://blog.auz.im/posts/cdn.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>API接口收集</title>
+      <link>https://blog.auz.im/posts/api.html</link>
+      <guid>https://blog.auz.im/posts/api.html</guid>
+      <pubDate>Wed, 24 May 2023 07:12:12 GMT</pubDate>
+      
+      <description>API接口记录</description>
+      
+      
+      
+      
+      <category domain="https://blog.auz.im/categories/API/">API</category>
+      
+      
+      <category domain="https://blog.auz.im/tags/API/">API</category>
+      
+      <category domain="https://blog.auz.im/tags/%E6%8E%A5%E5%8F%A3/">接口</category>
+      
+      
+      <comments>https://blog.auz.im/posts/api.html#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://blog.auz.im/posts/hello-world.html</link>
+      <guid>https://blog.auz.im/posts/hello-world.html</guid>
+      <pubDate>Wed, 10 May 2023 09:52:48 GMT</pubDate>
+      
+      <description>你好世界</description>
+      
+      
+      
+      
+      
+      <category domain="https://blog.auz.im/tags/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">第一篇文章</category>
+      
+      
+      <comments>https://blog.auz.im/posts/hello-world.html#disqus_thread</comments>
+      
+    </item>
+    
+  </channel>
+</rss>

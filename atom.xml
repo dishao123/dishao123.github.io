@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>小骏博客</title>
+  <icon>https://blog.auz.im/icon.png</icon>
+  <subtitle>一个菜鸡的博客</subtitle>
+  <link href="https://blog.auz.im/atom.xml" rel="self"/>
+  
+  <link href="https://blog.auz.im/"/>
+  <updated>2023-06-13T04:55:08.397Z</updated>
+  <id>https://blog.auz.im/</id>
+  
+  <author>
+    <name>小骏</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>国内可用静态CDN加速服务汇总</title>
+    <link href="https://blog.auz.im/posts/cdn.html"/>
+    <id>https://blog.auz.im/posts/cdn.html</id>
+    <published>2023-06-04T01:00:00.000Z</published>
+    <updated>2023-06-13T04:55:08.397Z</updated>
+    
+    
+    <summary type="html">目前国内依然可用的静态CDN加速服务汇总</summary>
+    
+    
+    
+    <category term="CDN" scheme="https://blog.auz.im/categories/CDN/"/>
+    
+    
+    <category term="CDN" scheme="https://blog.auz.im/tags/CDN/"/>
+    
+    <category term="Jsdelivr" scheme="https://blog.auz.im/tags/Jsdelivr/"/>
+    
+    <category term="CDNJS" scheme="https://blog.auz.im/tags/CDNJS/"/>
+    
+    <category term="静态" scheme="https://blog.auz.im/tags/%E9%9D%99%E6%80%81/"/>
+    
+    <category term="加速" scheme="https://blog.auz.im/tags/%E5%8A%A0%E9%80%9F/"/>
+    
+    <category term="反代" scheme="https://blog.auz.im/tags/%E5%8F%8D%E4%BB%A3/"/>
+    
+    <category term="镜像" scheme="https://blog.auz.im/tags/%E9%95%9C%E5%83%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>API接口收集</title>
+    <link href="https://blog.auz.im/posts/api.html"/>
+    <id>https://blog.auz.im/posts/api.html</id>
+    <published>2023-05-24T07:12:12.000Z</published>
+    <updated>2023-06-13T04:55:08.397Z</updated>
+    
+    
+    <summary type="html">API接口记录</summary>
+    
+    
+    
+    <category term="API" scheme="https://blog.auz.im/categories/API/"/>
+    
+    
+    <category term="API" scheme="https://blog.auz.im/tags/API/"/>
+    
+    <category term="接口" scheme="https://blog.auz.im/tags/%E6%8E%A5%E5%8F%A3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://blog.auz.im/posts/hello-world.html"/>
+    <id>https://blog.auz.im/posts/hello-world.html</id>
+    <published>2023-05-10T09:52:48.000Z</published>
+    <updated>2023-06-13T04:55:08.397Z</updated>
+    
+    
+    <summary type="html">你好世界</summary>
+    
+    
+    
+    
+    <category term="第一篇文章" scheme="https://blog.auz.im/tags/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/"/>
+    
+  </entry>
+  
+</feed>

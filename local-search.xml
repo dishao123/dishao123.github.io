@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  
+  
+  
+  <entry>
+    <title>国内可用静态CDN加速服务汇总</title>
+    <link href="/posts/cdn.html"/>
+    <url>/posts/cdn.html</url>
+    
+    <content type="html"><![CDATA[<p>众所周知，因为一些特殊原因导致<code>jsdelivr</code>在国内变得非常难用，所以我就一直在找替代品，最终找到了以下还不错的替代品，有些是由个人自建或反代的项目，其稳定性需要自行判断后再决定是否使用，以免出现问题</p><hr><h2 id="大厂的CDN">大厂的CDN<a class="anchor" href="#大厂的CDN">🍪</a></h2><p><strong>名称：饿了么（未公开发布）</strong></p><p><strong>地址：<a href="https://npm.elemecdn.com/">https://npm.elemecdn.com/</a></strong></p><hr><p><strong>名称：七牛云存储</strong></p><p><strong>地址：<a href="https://staticfile.org/">https://staticfile.org/</a></strong></p><hr><p><strong>名称：360 前端静态资源库</strong></p><p><strong>地址：<a href="https://cdn.baomitu.com/">https://cdn.baomitu.com/</a></strong></p><hr><p><strong>名称：字节跳动静态资源公共库</strong></p><p><strong>地址：<a href="https://cdn.bytedance.com/">https://cdn.bytedance.com/</a></strong></p><hr><p><strong>名称：又拍云</strong></p><p><strong>地址：<a href="http://jscdn.upai.com/">http://jscdn.upai.com/</a></strong></p><hr><p><strong>名称：新浪云计算CDN公共库</strong></p><p><strong>地址：<a href="https://lib.sinaapp.com/">https://lib.sinaapp.com/</a></strong></p><hr><p><strong>名称：极兔云 联合 Bootstrap 中文网</strong></p><p><strong>地址：<a href="https://www.bootcdn.cn/">https://www.bootcdn.cn/</a></strong></p><hr><p><strong>名称：CDNJS 镜像（阿里CDN）</strong></p><p><strong>地址：<a href="https://lf3-cdn-tos.bytecdntp.com/">https://lf3-cdn-tos.bytecdntp.com/</a></strong></p><hr><p><strong>名称：CDNJS 镜像（金山CDN）</strong></p><p><strong>地址：<a href="https://lf6-cdn-tos.bytecdntp.com/">https://lf6-cdn-tos.bytecdntp.com/</a></strong></p><hr><p><strong>名称：CDNJS 镜像（白山云CDN）</strong></p><p><strong>地址：<a href="https://lf9-cdn-tos.bytecdntp.com/">https://lf9-cdn-tos.bytecdntp.com/</a></strong></p><hr><p><strong>名称：CDNJS 镜像（华为云CDN）</strong></p><p><strong>地址：<a href="https://lf26-cdn-tos.bytecdntp.com/">https://lf26-cdn-tos.bytecdntp.com/</a></strong></p><hr><p><strong>名称：Jsdelivr（fastly）</strong></p><p><strong>地址：<a href="https://fastly.jsdelivr.net">https://fastly.jsdelivr.net/</a></strong></p><hr><h2 id="个人的CDN">个人的CDN<a class="anchor" href="#个人的CDN">🍪</a></h2><p><strong>名称：渺软公益 CDN</strong></p><p><strong>地址：<a href="https://cdn.onmicrosoft.cn/">https://cdn.onmicrosoft.cn/</a></strong></p><hr><p><strong>名称：Tianli CDN</strong></p><p><strong>地址：<a href="https://ql.tianli0.top/">https://ql.tianli0.top/</a></strong></p><hr><p><strong>名称：烧饼 CDN</strong></p><p><strong>地址：<a href="https://cdnjs.loli.net">https://cdnjs.loli.net</a></strong></p><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>CDN</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>CDN</tag>
+      
+      <tag>Jsdelivr</tag>
+      
+      <tag>CDNJS</tag>
+      
+      <tag>静态</tag>
+      
+      <tag>加速</tag>
+      
+      <tag>反代</tag>
+      
+      <tag>镜像</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>API接口收集</title>
+    <link href="/posts/api.html"/>
+    <url>/posts/api.html</url>
+    
+    <content type="html"><![CDATA[<p>常用API接口收集</p><div class="note note-warning">            <p>不保证一直可用，请谨慎使用！</p>          </div><h2 id="图片类">图片类<a class="anchor" href="#图片类">🍪</a></h2><p><strong>名称：<a href="https://www.loliapi.com/">Loliapi</a></strong></p><p><strong>类型：二次元</strong></p><p><strong>接口：<a href="https://www.loliapi.com/acg/">https://www.loliapi.com/acg/</a></strong></p><p><strong>示例：</strong><img src="https://vip1.loli.io/2022/05/11/ypcgevJjWVMLbP4.jpg" alt="示例"></p><hr><h2 id="文字类">文字类<a class="anchor" href="#文字类">🍪</a></h2><p><strong>名称：<a href="https://hitokoto.cn">一言</a></strong></p><p><strong>类型：随机文字</strong></p><p><strong>接口：<a href="https://v1.hitokoto.cn/">https://v1.hitokoto.cn/</a></strong></p><p><strong>示例：</strong></p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">6418</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;uuid&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;4a14fd11-9e45-4935-bd16-da864c361fe9&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;hitokoto&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;无垢清净光，慧日破诸暗，能伏灾风火，普明照世间。&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;type&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;k&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;from&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;法华经&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;from_who&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;鸠摩罗什&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;creator&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;范.那内海姆&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;creator_uid&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">2913</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;reviewer&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;commit_from&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;web&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;created_at&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;1596274765&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-attr">&quot;length&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">24</span><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure><hr><p><strong>名称：<a href="https://www.jinrishici.com/">今日诗词</a></strong></p><p><strong>类型：随机文字</strong></p><p><strong>接口：<a href="https://v2.jinrishici.com">https://v2.jinrishici.com/</a></strong></p><div class="note note-warning">            <p>说明：由于本接口的特殊性，不支持直接调用，请根据文档进行使用</p>          </div><hr>]]></content>
+    
+    
+    <categories>
+      
+      <category>API</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>API</tag>
+      
+      <tag>接口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="/posts/hello-world.html"/>
+    <url>/posts/hello-world.html</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start">Quick Start<a class="anchor" href="#Quick-Start">🍪</a></h2><h3 id="Create-a-new-post">Create a new post<a class="anchor" href="#Create-a-new-post">🍪</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server">Run server<a class="anchor" href="#Run-server">🍪</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files">Generate static files<a class="anchor" href="#Generate-static-files">🍪</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites">Deploy to remote sites<a class="anchor" href="#Deploy-to-remote-sites">🍪</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>第一篇文章</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  
+</search>

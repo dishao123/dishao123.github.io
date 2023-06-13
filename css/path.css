@@ -1,0 +1,77 @@
+/* 显示文件路径
+/* <p class="file-path"><span>这里写路径</span></p>
+```markdown
+#### 路径使用
+
+在代码块上一行添加`<p class="file-path"><span>这里写路径</span></p>`
+``` */
+
+p.file-path + figure.highlight {
+    border-top-left-radius: 0;
+  }
+  
+  p.file-path {
+  font-family: 华文新魏,SSTXinwei;
+  color: #9ce159;
+  background: #838383;
+  border-radius: 5px 0 0 0;
+  height: 1.6rem;
+  margin-bottom: -0.5rem;
+  padding: 0 0.2rem 0 0.2rem;
+  display: inline-block;
+  font-weight: 600;
+  position: relative;
+  top: 1.5rem;
+  filter: drop-shadow(0 0 4px #a1a1a1);
+  }
+
+  p.file-path>span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    direction: rtl;
+    text-align: left;
+    max-width: 500px;
+  }
+  
+  @media (max-width: 768px) {
+    p.file-path>span {
+      max-width: 300px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    p.file-path>span {
+      max-width: 160px;
+    }
+  }
+  
+  [data-user-color-scheme='dark'] p.file-path {
+    background: #000;
+  }
+  
+  p.file-path::before {
+  content: '🔖 Path:/';
+  color: #ff7e7e;
+  font-weight: 700;
+  position: relative;
+  top: -0.4rem;
+  }
+
+  p.file-path::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-width: 20px;
+    border-top: 0.8rem solid #00000000;
+    border-bottom: 0.8rem solid #00000000;
+    right: -1.2rem;
+    border-left: 20px solid #838383;
+    }
+    
+    [data-user-color-scheme='dark'] p.file-path::after {
+      border-left: 20px solid #000;
+    }
