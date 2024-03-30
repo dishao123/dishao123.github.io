@@ -1,6 +1,15 @@
 {
-    "title":"Blog Title",
-    "subTitle":"Blog description",
+    "title":"帝少博客",
+    "subTitle":"分享技术，享受生活",
     "avatarUrl":"https://github.githubassets.com/favicons/favicon.svg",
-    "GMEEK_VERSION":"last"
+    "GMEEK_VERSION":"last",
+    "email":"dishao@msn.com",
+    "startSite":"03/30/2024",
+    "onePageListNum":20,
+    "singlePage":["about", "link"],
+    "i18n":"CN",
+    "UTC":8,
+    "dayTheme":"light",
+    "nightTheme":"dark_dimmed",
+    "urlMode":"pinyin"
 }
