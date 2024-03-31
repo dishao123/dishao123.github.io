@@ -11,5 +11,5 @@
     "UTC":8,
     "dayTheme":"light",
     "nightTheme":"dark_dimmed",
-    "urlMode":"pinyin"
+    "urlMode":"ru_translit"
 }
