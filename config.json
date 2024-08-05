@@ -1,7 +1,7 @@
 {
     "title":"帝少博客",
     "subTitle":"分享技术，享受生活",
-    "avatarUrl":"https://avatars.githubusercontent.com/u/58305876?v=4",
+    "avatarUrl":"https://dishao123.github.io/favicon.png",
     "GMEEK_VERSION":"last",
     "email":"dishao@msn.com",
     "startSite":"03/30/2024",
@@ -14,6 +14,6 @@
     "nightTheme":"icy-dark",
     "urlMode":"issue",
     "showPostSource":0,
-    "bottomText":"转载请注明出处，谢谢配合😘",
+    "bottomText":"❤️ 转载请注明出处，谢谢！❤️",
     "allHead":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js'></script>"
 }
