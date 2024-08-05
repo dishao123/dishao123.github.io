@@ -12,6 +12,5 @@
     "dayTheme":"light",
     "nightTheme":"dark_dimmed",
     "urlMode":"issue",
-    "allHead":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js
-'></script>"
+    "allHead":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js'></script>"
 }
