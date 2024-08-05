@@ -5,12 +5,15 @@
     "GMEEK_VERSION":"last",
     "email":"dishao@msn.com",
     "startSite":"03/30/2024",
-    "onePageListNum":20,
+    "onePageListNum":15,
     "singlePage":["about", "link"],
     "i18n":"CN",
     "UTC":8,
-    "dayTheme":"light",
-    "nightTheme":"dark_dimmed",
+    "themeMode":"manual",
+    "dayTheme":"dark_dimmed",
+    "nightTheme":"icy-dark",
     "urlMode":"issue",
+    "showPostSource":0,
+    "bottomText":"转载请注明出处，谢谢配合😘",
     "allHead":"<script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script><script src='https://blog.meekdai.com/Gmeek/plugins/articletoc.js'></script>"
 }
