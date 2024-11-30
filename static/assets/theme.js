@@ -16,25 +16,9 @@ document.addEventListener('DOMContentLoaded', function() {
           border-bottom: 1px solid
           margin-bottom: 16px;
         }
-
-        #header h1 a {
-            margin-top: 30px;
-            font-family: fantasy;
-            margin-left: unset;
-        }
-
-        /* 主体布局 */
-        body {
-            min-width: 200px;
-            max-width: 885px;
-            margin: 30px auto;   /*设置所有外边距离 */
-            font-size: 16px;
-            font-family: sans-serif;
-            line-height: 1.25;
-            background: rgba(237, 239, 233, 0.84); 
-            border-radius: 10px; /* 圆角边框 */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* 添加阴影 */
-            overflow: auto;
+        
+        .title-right {
+          display: flex;
         }
 
         /* 主页博客列表圆角边框 */
