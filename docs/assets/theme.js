@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('应用主页主题');
         let style = document.createElement("style");
         style.innerHTML = `
+
         .blogTitle {
-            display: unset;
+          display: unset;
         }
 
         #header {
-            height: 300px;
+          flex-direction: column;
+          align-items: center;
         }
 
         #header h1 {
