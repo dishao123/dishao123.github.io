@@ -36,11 +36,6 @@ document.addEventListener('DOMContentLoaded', function() {
             margin-left: unset;
         }
 
-        html {    
-            background: url('https://blog.freeblock.cn/background.webp') no-repeat center center fixed;
-            background-size: cover;
-        }
-
         /* 主体布局 */
         body {
             min-width: 200px;
@@ -73,10 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .SideNav-item {
             transition: 0.1s;
         }
-
-        /* 分页条 */
-        .pagination a:hover, .pagination a:focus, .pagination span:hover, .pagination span:focus, .pagination em:hover, .pagination em:focus {
-            border-color: rebeccapurple;
         `;
         document.head.appendChild(style);}
 
@@ -88,11 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let style = document.createElement("style");
         style.innerHTML = `
-
-        html {    
-            background: url('https://blog.freeblock.cn/background.webp') no-repeat center center fixed;
-            background-size: cover;
-        }
 
         /* 主体布局 */
         body {
@@ -160,11 +146,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('应用搜索页主题');
         let style = document.createElement("style");
         style.innerHTML = `
-        
-        html {    
-            background: url('https://blog.freeblock.cn/background.webp') no-repeat center center fixed;
-            background-size: cover;
-        }
 
         /* 主体布局 */
         body {
