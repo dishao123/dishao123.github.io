@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {    
     let currentUrl = window.location.pathname;
-    //let currentHost = window.location.hostname;
 
     //主页主题------------------------------------------------------------------------------
     
@@ -9,27 +8,13 @@ document.addEventListener('DOMContentLoaded', function() {
         let style = document.createElement("style");
         style.innerHTML = `
 
-        .blogTitle {
-          display: unset;
-        }
-
         #header {
+          display: flex;
           flex-direction: column;
           align-items: center;
-        }
-
-        #header h1 {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .avatar {
-            width: 200px;
-            height: 200px;
+          padding-bottom: 8px;
+          border-bottom: 1px solid
+          margin-bottom: 16px;
         }
 
         #header h1 a {
