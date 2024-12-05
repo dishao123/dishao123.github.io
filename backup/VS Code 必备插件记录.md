@@ -58,7 +58,7 @@
 
 介绍：在 `HTML` 文件中对 `ID` 和 `Class` 提供 `CSS` 样式智能提示。
 
-演示：`Gmmek-html<img src="https://img.xwdev.com/file/html-css-support.png" alt="html-css-support.png" width=100% />`
+演示：`Gmeek-html<img src="https://img.xwdev.com/file/html-css-support.png" alt="html-css-support.png" width=100% />`
 
 ---
 
