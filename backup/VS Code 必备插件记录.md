@@ -29,7 +29,7 @@
 
 名称：git-commit-plugin
 
-介绍：规范化 Git Commit 提交信息的插件。可以快速按照指定格式，生成提交信息。
+介绍：规范化 `Git Commit` 提交信息的插件。可以快速按照指定格式，生成提交信息。
 
 演示：`Gmeek-html<img src="https://img.xwdev.com/file/git-commit-plugin.gif" alt="git-commit-plugin.gif" width=100% />`
 
@@ -37,8 +37,24 @@
 
 名称：Highlight Matching Tag
 
-介绍：高亮显示配对的 Tag 标签，支持多种编程语言。再也不怕找不到标签对了。
+介绍：高亮显示配对的 `Tag` 标签，支持多种编程语言。再也不怕找不到标签对了。
 
 演示：`Gmeek-html<img src="https://img.xwdev.com/file/highlight-matching-tag.gif" alt="highlight-matching-tag.gif" width=100% />`
+
+---
+
+名称：HTML CSS Support
+
+介绍：在 `HTML` 文件中对 `ID` 和 `Class` 提供 `CSS` 样式智能提示。
+
+演示：`Gmmek-html<img src="https://img.xwdev.com/file/html-css-support.png" alt="html-css-support.png" width=100% />`
+
+---
+
+名称：Markdown All in One
+
+介绍：提供 Markdown 所需的基础套件（键盘快捷键、目录、自动预览等）。
+
+演示：`Gmeek-html<img src="https://img.xwdev.com/file/markdown-all-in-one.png" alt="markdown-all-in-one.png" width=100% />`
 
 ---
