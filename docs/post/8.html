@@ -1310,13 +1310,13 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span class="pl-s1"><span class="pl-c1">$</span>mailbody</span> = <span class="pl-s1"><span class="pl-c1">$</span>stm</span>;<span class="pl-c">//邮件内容 </span>
 <span class="pl-s1"><span class="pl-c1">$</span>mailtype</span> = <span class="pl-s">"<span class="pl-s">HTML</span>"</span>;<span class="pl-c">//邮件格式（HTML/TXT）,TXT为文本邮件 </span>
 <span class="pl-c">########################################## </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtp</span> = <span class="pl-k">new</span> smtp(<span class="pl-s1"><span class="pl-c1">$</span>smtpserver</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpserverport</span>,<span class="pl-c1">true</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpuser</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtppass</span>);<span class="pl-c">//这里面的一个true是表示使用身份验证,否则不使用身份验证. </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtp</span> = <span class="pl-k">new</span> <span class="pl-v">smtp</span>(<span class="pl-s1"><span class="pl-c1">$</span>smtpserver</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpserverport</span>,<span class="pl-c1">true</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpuser</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtppass</span>);<span class="pl-c">//这里面的一个true是表示使用身份验证,否则不使用身份验证. </span>
 <span class="pl-s1"><span class="pl-c1">$</span>smtp</span>-&gt;<span class="pl-c1">debug</span> = <span class="pl-c1">TRUE</span>;<span class="pl-c">//是否显示发送的调试信息 </span>
 <span class="pl-s1"><span class="pl-c1">$</span>smtp</span>-&gt;<span class="pl-en">sendmail</span>(<span class="pl-s1"><span class="pl-c1">$</span>smtpemailto</span>, <span class="pl-s1"><span class="pl-c1">$</span>smtpusermail</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailsubject</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailbody</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>); 
 <span class="pl-k">echo</span> <span class="pl-s">"<span class="pl-s">&lt;script&gt;alert('邮件发送成功');parent.document.ADDUser.cheheh.click();&lt;/script&gt;</span>"</span>; 
-exit; 
+<span class="pl-k">exit</span>; 
 } 
-<span class="pl-s">?&gt;</span></pre></div>
+<span class="pl-ent">?&gt;</span></pre></div>
 <p>最后，创建一个 <code class="notranslate">smtp.php</code> 邮件类</p>
 <div class="highlight highlight-text-html-php"><pre class="notranslate"><span class="pl-ent">&lt;?php</span> 
 <span class="pl-k">class</span> smtp 
