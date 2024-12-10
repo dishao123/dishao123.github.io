@@ -1409,7 +1409,7 @@ var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>;
 { 
 <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
-<span class="pl-c">#auth </span>
+<span class="pl-k"><span class="pl-c">#auth</span> </span>
 <span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span>) 
 { 
 <span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">AUTH LOGIN</span>"</span>, <span class="pl-en">base64_encode</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span>))) 
@@ -1674,7 +1674,7 @@ var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>;
 { 
 <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
-<span class="pl-c">#auth </span>
+<span class="pl-k"><span class="pl-c">#auth</span> </span>
 <span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span>) 
 { 
 <span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">AUTH LOGIN</span>"</span>, <span class="pl-en">base64_encode</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span>))) 
