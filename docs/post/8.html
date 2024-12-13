@@ -1300,18 +1300,18 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <span class="pl-s1"><span class="pl-c1">$</span>stm</span>=<span class="pl-s">"<span class="pl-s">邮件内容</span>"</span>; 
 <span class="pl-k">require</span>(<span class="pl-s">"<span class="pl-s">smtp.php</span>"</span>); 
 <span class="pl-c">########################################## </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtpserver</span> = <span class="pl-s">"<span class="pl-s">smtp.qq.com</span>"</span>;<span class="pl-c1"><span class="pl-c">//</span><span class="pl-v">SMTP服务器</span> </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtpserverport</span> = <span class="pl-s">"<span class="pl-s">465</span>"</span>;<span class="pl-c1"><span class="pl-c">//</span><span class="pl-v">SMTP服务器端口</span> </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtpusermail</span> = <span class="pl-s">"<span class="pl-s">XXX@qq.com</span>"</span>;<span class="pl-c1"><span class="pl-c">//</span><span class="pl-v">SMTP服务器的用户邮箱</span> </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtpemailto</span> = <span class="pl-s">"<span class="pl-s">AAA@qq.com</span>"</span>;<span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">发送给谁</span> </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtpuser</span> = <span class="pl-s">"<span class="pl-s">XXX@qq.com</span>"</span>;<span class="pl-c1"><span class="pl-c">//</span><span class="pl-v">SMTP服务器的用户帐号</span> </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtppass</span> = <span class="pl-s">"<span class="pl-s">666</span>"</span>;<span class="pl-c1"><span class="pl-c">//</span><span class="pl-v">SMTP服务器的用户密码</span> </span>
-<span class="pl-s1"><span class="pl-c1">$</span>mailsubject</span> = <span class="pl-s">"<span class="pl-s">666 </span>"</span>;<span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">邮件主题</span> </span>
-<span class="pl-s1"><span class="pl-c1">$</span>mailbody</span> = <span class="pl-s1"><span class="pl-c1">$</span>stm</span>;<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">邮件内容</span> </span>
-<span class="pl-s1"><span class="pl-c1">$</span>mailtype</span> = <span class="pl-s">"<span class="pl-s">HTML</span>"</span>;<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">邮件格式</span>（<span class="pl-c1">HTML</span><span class="pl-c1">/</span><span class="pl-c1">TXT</span>）,<span class="pl-v">TXT为文本邮件</span> </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpserver</span> = <span class="pl-s">"<span class="pl-s">smtp.qq.com</span>"</span>;<span class="pl-c">//SMTP服务器 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpserverport</span> = <span class="pl-s">"<span class="pl-s">465</span>"</span>;<span class="pl-c">//SMTP服务器端口 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpusermail</span> = <span class="pl-s">"<span class="pl-s">XXX@qq.com</span>"</span>;<span class="pl-c">//SMTP服务器的用户邮箱 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpemailto</span> = <span class="pl-s">"<span class="pl-s">AAA@qq.com</span>"</span>;<span class="pl-c">//发送给谁 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpuser</span> = <span class="pl-s">"<span class="pl-s">XXX@qq.com</span>"</span>;<span class="pl-c">//SMTP服务器的用户帐号 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtppass</span> = <span class="pl-s">"<span class="pl-s">666</span>"</span>;<span class="pl-c">//SMTP服务器的用户密码 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>mailsubject</span> = <span class="pl-s">"<span class="pl-s">666 </span>"</span>;<span class="pl-c">//邮件主题 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>mailbody</span> = <span class="pl-s1"><span class="pl-c1">$</span>stm</span>;<span class="pl-c">//邮件内容 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>mailtype</span> = <span class="pl-s">"<span class="pl-s">HTML</span>"</span>;<span class="pl-c">//邮件格式（HTML/TXT）,TXT为文本邮件 </span>
 <span class="pl-c">########################################## </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtp</span> = <span class="pl-k">new</span> <span class="pl-v">smtp</span>(<span class="pl-s1"><span class="pl-c1">$</span>smtpserver</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpserverport</span>,<span class="pl-c1">true</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpuser</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtppass</span>);<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">这里面的一个true是表示使用身份验证</span>,<span class="pl-s1">否则不使用身份验证</span>. </span>
-<span class="pl-s1"><span class="pl-c1">$</span>smtp</span>-&gt;<span class="pl-c1">debug</span> = <span class="pl-c1">TRUE</span>;<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">是否显示发送的调试信息</span> </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtp</span> = <span class="pl-k">new</span> <span class="pl-v">smtp</span>(<span class="pl-s1"><span class="pl-c1">$</span>smtpserver</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpserverport</span>,<span class="pl-c1">true</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpuser</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtppass</span>);<span class="pl-c">//这里面的一个true是表示使用身份验证,否则不使用身份验证. </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtp</span>-&gt;<span class="pl-c1">debug</span> = <span class="pl-c1">TRUE</span>;<span class="pl-c">//是否显示发送的调试信息 </span>
 <span class="pl-s1"><span class="pl-c1">$</span>smtp</span>-&gt;<span class="pl-en">sendmail</span>(<span class="pl-s1"><span class="pl-c1">$</span>smtpemailto</span>, <span class="pl-s1"><span class="pl-c1">$</span>smtpusermail</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailsubject</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailbody</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>); 
 <span class="pl-k">echo</span> <span class="pl-s">"<span class="pl-s">&lt;script&gt;alert('邮件发送成功');parent.document.ADDUser.cheheh.click();&lt;/script&gt;</span>"</span>; 
 <span class="pl-k">exit</span>; 
@@ -1321,7 +1321,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="highlight highlight-text-html-php"><pre class="notranslate"><span class="pl-ent">&lt;?php</span> 
 <span class="pl-k">class</span> smtp 
 { 
-<span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Public</span> <span class="pl-v">Variables</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Public Variables */</span> 
 var <span class="pl-c1"><span class="pl-c1">$</span>smtp_port</span>; 
 var <span class="pl-c1"><span class="pl-c1">$</span>time_out</span>; 
 var <span class="pl-c1"><span class="pl-c1">$</span>host_name</span>; 
@@ -1331,23 +1331,23 @@ var <span class="pl-c1"><span class="pl-c1">$</span>debug</span>;
 var <span class="pl-c1"><span class="pl-c1">$</span>auth</span>; 
 var <span class="pl-c1"><span class="pl-c1">$</span>user</span>; 
 var <span class="pl-c1"><span class="pl-c1">$</span>pass</span>; 
-<span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Private</span> <span class="pl-v">Variables</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Private Variables */</span> 
 var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>; 
-<span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Constractor</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Constractor */</span> 
 <span class="pl-k">function</span> <span class="pl-en">smtp</span>(<span class="pl-s1"><span class="pl-c1">$</span>relay_host</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>smtp_port</span> = <span class="pl-c1">25</span>,<span class="pl-s1"><span class="pl-c1">$</span>auth</span> = <span class="pl-c1">false</span>,<span class="pl-s1"><span class="pl-c1">$</span>user</span>,<span class="pl-s1"><span class="pl-c1">$</span>pass</span>) 
 { 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">debug</span> = <span class="pl-c1">FALSE</span>; 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span> = <span class="pl-s1"><span class="pl-c1">$</span>smtp_port</span>; 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span> = <span class="pl-s1"><span class="pl-c1">$</span>relay_host</span>; 
-<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span> = <span class="pl-c1">30</span>; <span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">is</span> <span class="pl-s1">used</span> <span class="pl-c1">in</span> <span class="pl-en">fsockopen</span>() </span>
-<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span> = <span class="pl-s1"><span class="pl-c1">$</span>auth</span>;<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">auth</span> </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span> = <span class="pl-c1">30</span>; <span class="pl-c">//is used in fsockopen() </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span> = <span class="pl-s1"><span class="pl-c1">$</span>auth</span>;<span class="pl-c">//auth </span>
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span> = <span class="pl-s1"><span class="pl-c1">$</span>user</span>; 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">pass</span> = <span class="pl-s1"><span class="pl-c1">$</span>pass</span>; 
-<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">host_name</span> = <span class="pl-s">"<span class="pl-s">localhost</span>"</span>; <span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">is</span> <span class="pl-s1">used</span> <span class="pl-c1">in</span> <span class="pl-c1">HELO</span> <span class="pl-s1">command</span> </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">host_name</span> = <span class="pl-s">"<span class="pl-s">localhost</span>"</span>; <span class="pl-c">//is used in HELO command </span>
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span> = <span class="pl-s">""</span>; 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> = <span class="pl-c1">FALSE</span>; 
 } 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Main</span> <span class="pl-v">Function</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Main Function */</span> 
 <span class="pl-k">function</span> <span class="pl-en">sendmail</span>(<span class="pl-s1"><span class="pl-c1">$</span>to</span>, <span class="pl-s1"><span class="pl-c1">$</span>from</span>, <span class="pl-s1"><span class="pl-c1">$</span>subject</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>, <span class="pl-s1"><span class="pl-c1">$</span>cc</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>bcc</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>additional_headers</span> = <span class="pl-s">""</span>) 
 { 
 <span class="pl-s1"><span class="pl-c1">$</span>mail_from</span> = <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">get_address</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>from</span>)); 
@@ -1402,14 +1402,14 @@ var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>;
 } 
 <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>sent</span>; 
 } 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Private</span> <span class="pl-v">Functions</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Private Functions */</span> 
 <span class="pl-k">function</span> <span class="pl-en">smtp_send</span>(<span class="pl-s1"><span class="pl-c1">$</span>helo</span>, <span class="pl-s1"><span class="pl-c1">$</span>from</span>, <span class="pl-s1"><span class="pl-c1">$</span>to</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-s">""</span>) 
 { 
 <span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">HELO</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>helo</span>)) 
 { 
 <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
-<span class="pl-c">#auth </span>
+<span class="pl-c">#<span class="pl-s1">auth</span> </span>
 <span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span>) 
 { 
 <span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">AUTH LOGIN</span>"</span>, <span class="pl-en">base64_encode</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span>))) 
@@ -1579,14 +1579,14 @@ var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>;
 { 
 <span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">debug</span>) 
 { 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">echo</span> $<span class="pl-s1">message</span>; </span>
+<span class="pl-c">//echo $message; </span>
 } 
 } 
 } 
 <span class="pl-ent">?&gt;</span><span class="pl-ent">&lt;?php</span> 
 <span class="pl-k">class</span> smtp 
 { 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Public</span> <span class="pl-v">Variables</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Public Variables */</span> 
 var <span class="pl-c1"><span class="pl-c1">$</span>smtp_port</span>; 
 var <span class="pl-c1"><span class="pl-c1">$</span>time_out</span>; 
 var <span class="pl-c1"><span class="pl-c1">$</span>host_name</span>; 
@@ -1596,23 +1596,23 @@ var <span class="pl-c1"><span class="pl-c1">$</span>debug</span>;
 var <span class="pl-c1"><span class="pl-c1">$</span>auth</span>; 
 var <span class="pl-c1"><span class="pl-c1">$</span>user</span>; 
 var <span class="pl-c1"><span class="pl-c1">$</span>pass</span>; 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Private</span> <span class="pl-v">Variables</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Private Variables */</span> 
 var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>; 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Constractor</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Constractor */</span> 
 <span class="pl-k">function</span> <span class="pl-en">smtp</span>(<span class="pl-s1"><span class="pl-c1">$</span>relay_host</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>smtp_port</span> = <span class="pl-c1">25</span>,<span class="pl-s1"><span class="pl-c1">$</span>auth</span> = <span class="pl-c1">false</span>,<span class="pl-s1"><span class="pl-c1">$</span>user</span>,<span class="pl-s1"><span class="pl-c1">$</span>pass</span>) 
 { 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">debug</span> = <span class="pl-c1">FALSE</span>; 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span> = <span class="pl-s1"><span class="pl-c1">$</span>smtp_port</span>; 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span> = <span class="pl-s1"><span class="pl-c1">$</span>relay_host</span>; 
-<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span> = <span class="pl-c1">30</span>; <span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">is</span> <span class="pl-s1">used</span> <span class="pl-c1">in</span> <span class="pl-en">fsockopen</span>() </span>
-<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span> = <span class="pl-s1"><span class="pl-c1">$</span>auth</span>;<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">auth</span> </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span> = <span class="pl-c1">30</span>; <span class="pl-c">//is used in fsockopen() </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span> = <span class="pl-s1"><span class="pl-c1">$</span>auth</span>;<span class="pl-c">//auth </span>
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span> = <span class="pl-s1"><span class="pl-c1">$</span>user</span>; 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">pass</span> = <span class="pl-s1"><span class="pl-c1">$</span>pass</span>; 
-<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">host_name</span> = <span class="pl-s">"<span class="pl-s">localhost</span>"</span>; <span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">is</span> <span class="pl-s1">used</span> <span class="pl-c1">in</span> <span class="pl-c1">HELO</span> <span class="pl-s1">command</span> </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">host_name</span> = <span class="pl-s">"<span class="pl-s">localhost</span>"</span>; <span class="pl-c">//is used in HELO command </span>
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span> = <span class="pl-s">""</span>; 
 <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> = <span class="pl-c1">FALSE</span>; 
 } 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Main</span> <span class="pl-v">Function</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Main Function */</span> 
 <span class="pl-k">function</span> <span class="pl-en">sendmail</span>(<span class="pl-s1"><span class="pl-c1">$</span>to</span>, <span class="pl-s1"><span class="pl-c1">$</span>from</span>, <span class="pl-s1"><span class="pl-c1">$</span>subject</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>, <span class="pl-s1"><span class="pl-c1">$</span>cc</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>bcc</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>additional_headers</span> = <span class="pl-s">""</span>) 
 { 
 <span class="pl-s1"><span class="pl-c1">$</span>mail_from</span> = <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">get_address</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>from</span>)); 
@@ -1667,14 +1667,14 @@ var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>;
 } 
 <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>sent</span>; 
 } 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">/</span><span class="pl-c1">*</span> <span class="pl-v">Private</span> <span class="pl-v">Functions</span> <span class="pl-c1">*</span><span class="pl-c1">/</span></span> 
+<span class="pl-c">/* Private Functions */</span> 
 <span class="pl-k">function</span> <span class="pl-en">smtp_send</span>(<span class="pl-s1"><span class="pl-c1">$</span>helo</span>, <span class="pl-s1"><span class="pl-c1">$</span>from</span>, <span class="pl-s1"><span class="pl-c1">$</span>to</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-s">""</span>) 
 { 
 <span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">HELO</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>helo</span>)) 
 { 
 <span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
-<span class="pl-c">#auth </span>
+<span class="pl-c">#<span class="pl-s1">auth</span> </span>
 <span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span>) 
 { 
 <span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">AUTH LOGIN</span>"</span>, <span class="pl-en">base64_encode</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span>))) 
@@ -1844,7 +1844,7 @@ var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>;
 { 
 <span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">debug</span>) 
 { 
-<span class="pl-s1"></span><span class="pl-c1"><span class="pl-c">//</span><span class="pl-s1">echo</span> $<span class="pl-s1">message</span>; </span>
+<span class="pl-c">//echo $message; </span>
 } 
 } 
 } 
