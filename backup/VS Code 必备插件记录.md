@@ -1,5 +1,8 @@
 记录一下，正在使用的 VS Code 插件。
 
+---
+
+
 名称：Chinese (Simplified) (简体中文) Language
 
 介绍：必装插件，中文语言包。
@@ -69,3 +72,33 @@
 演示：`Gmeek-html<img src="https://img.xwdev.com/file/markdown-all-in-one.png" alt="markdown-all-in-one.png" width=100% />`
 
 ---
+
+名称：Markdown Preview Enhanced
+
+介绍：待补充
+
+演示：暂无
+
+---
+
+名称：markdownlint
+
+介绍：待补充
+
+演示：暂无
+
+---
+
+名称：Material Icon Theme
+
+介绍：待补充
+
+演示：暂无
+
+---
+
+名称：Project Manager
+
+介绍：待补充
+
+演示：暂无
