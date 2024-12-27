@@ -17,6 +17,6 @@
     "urlMode":"issue",
     "showPostSource":0,
     "bottomText":"转载请注明出处，谢谢😘",
-    "allHead":"<script src='/assets/vercount.js'></script><script defer src='https://um.255688.xyz/script.js' data-website-id='16a94ca6-88b7-4f64-afa2-3f1df3157c54'></script>",
+    "allHead":"<script src='/assets/headings_id.js'></script><script src='/assets/vercount.js'></script><script defer src='https://um.255688.xyz/script.js' data-website-id='16a94ca6-88b7-4f64-afa2-3f1df3157c54'></script>",
     "script":"<script>document.getElementById('cmButton').click();</script>"
 }
