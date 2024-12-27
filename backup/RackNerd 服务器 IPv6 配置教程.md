@@ -56,9 +56,8 @@ reboot
 2. 点击重置网络选项
 `Gmeek-html<img src="https://img.xwdev.com/file/racknerd-vm-panel-network.png" alt="racknerd-vm-panel-network.png" width=100%>`
 
-3. 点击 `Yes` 按纽
+3. 点击 `Yes` 按纽，稍等片刻
 `Gmeek-html<img src="https://img.xwdev.com/file/racknerd-vm-panel-network-yes.png" alt="racknerd-vm-panel-network-yes.png" width=100% />`
-稍等片刻
 
 4. 弹出该页面后，点击 `Ok` 按纽即可
 `Gmeek-html<img src="https://img.xwdev.com/file/racknerd-vm-panel-network-ok.png" alt="racknerd-vm-panel-network-ok.png" width=100% />`
