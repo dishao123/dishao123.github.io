@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://blog.xwdev.com/post/13.html">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/58305876?v=4">
 <title>RackNerd 服务器 IPv6 配置教程</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -107,17 +107,14 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 <ol start="3">
 <li>保存文件后执行以下命令以应用配置</li>
 </ol>
-<pre class="notranslate"><code class="notranslate">sysctl -p
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">sysctl -p</pre></div>
 <h3>重启网络服务</h3>
 <p>执行以下命令重启网络</p>
-<pre class="notranslate"><code class="notranslate">systemctl restart networking
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">systemctl restart networking</pre></div>
 <p>如果执行后出现报错，请查看<a href="#%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95">解决方法</a></p>
 <h3>重启服务器</h3>
 <p>如果没有异常，重启服务器</p>
-<pre class="notranslate"><code class="notranslate">reboot
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">reboot</pre></div>
 <h3>在控制面板中重置网络</h3>
 <ol>
 <li>
@@ -139,8 +136,7 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 </ol>
 <h3>测试 IPv6 是否正常</h3>
 <p>执行以下命令</p>
-<pre class="notranslate"><code class="notranslate">curl ip.me -6
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">curl ip.me -6</pre></div>
 <p>如果返回 IPv6 地址，则配置成功</p>
 <hr>
 <h2>报错解决方法</h2>
@@ -163,16 +159,13 @@ See "systemctl status networking.service" and "journalctl -xeu networking.servic
 <ol start="3">
 <li>保存文件并重启服务器</li>
 </ol>
-<pre class="notranslate"><code class="notranslate">reboot
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">reboot</pre></div>
 <h3>再次尝试重启网络</h3>
 <p>执行以下命令重启网络</p>
-<pre class="notranslate"><code class="notranslate">systemctl restart networking
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">systemctl restart networking</pre></div>
 <h3>测试 IPv6</h3>
 <p>最后测试 IPv6 是否正常</p>
-<pre class="notranslate"><code class="notranslate">curl ip.me -6
-</code></pre>
+<div class="highlight highlight-source-shell"><pre class="notranslate">curl ip.me -6</pre></div>
 <p>如果返回 IPv6 地址，则配置成功</p></div>
 <div style="font-size:small;margin-top:8px;float:right;">转载请注明出处，谢谢😘</div>
 

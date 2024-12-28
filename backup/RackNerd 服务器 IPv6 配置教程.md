@@ -32,20 +32,20 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 ```
 
 3. 保存文件后执行以下命令以应用配置
-```
+```shell
 sysctl -p
 ```
 
 ### 重启网络服务
 执行以下命令重启网络
-```
+```shell
 systemctl restart networking
 ```
 如果执行后出现报错，请查看[解决方法](#%E6%8A%A5%E9%94%99%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95)
 
 ### 重启服务器
 如果没有异常，重启服务器
-```
+```shell
 reboot
 ```
 
@@ -64,7 +64,7 @@ reboot
 
 ### 测试 IPv6 是否正常
 执行以下命令
-```
+```shell
 curl ip.me -6
 ```
 如果返回 IPv6 地址，则配置成功
@@ -91,19 +91,19 @@ up ip -6 route add 2607:0000:0000:0000:0000:0000:0000:0001 dev eth0
 ```
 
 3. 保存文件并重启服务器
-```
+```shell
 reboot
 ```
 
 ### 再次尝试重启网络
 执行以下命令重启网络
-```
+```shell
 systemctl restart networking
 ```
 
 ### 测试 IPv6
 最后测试 IPv6 是否正常
-```
+```shell
 curl ip.me -6
 ```
 如果返回 IPv6 地址，则配置成功
