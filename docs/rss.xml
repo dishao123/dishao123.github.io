@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>帝少博客</title><link>https://blog.xwdev.com</link><description>分享技术，享受生活</description><copyright>帝少博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/58305876?v=4</url><title>avatar</title><link>https://blog.xwdev.com</link></image><lastBuildDate>Sat, 04 Jan 2025 17:02:16 +0000</lastBuildDate><managingEditor>帝少博客</managingEditor><ttl>60</ttl><webMaster>帝少博客</webMaster><item><title>一言 API 接口源码</title><link>https://blog.xwdev.com/post/15.html</link><description>搭建一个自己的一言 API 接口，搭配上[语句采集代码](https://blog.xwdev.com/post/14.html)直接起飞&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>帝少博客</title><link>https://blog.xwdev.com</link><description>分享技术，享受生活</description><copyright>帝少博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/58305876?v=4</url><title>avatar</title><link>https://blog.xwdev.com</link></image><lastBuildDate>Sat, 04 Jan 2025 17:05:59 +0000</lastBuildDate><managingEditor>帝少博客</managingEditor><ttl>60</ttl><webMaster>帝少博客</webMaster><item><title>一言 API 接口源码</title><link>https://blog.xwdev.com/post/15.html</link><description>搭建一个自己的一言 API 接口，搭配上[语句采集代码](https://blog.xwdev.com/post/14.html)直接起飞&#13;
 &#13;
 源码如下&#13;
 ```php&#13;
@@ -32,7 +32,7 @@ if ($_GET['encode'] === 'js') {&#13;
     echo $content;&#13;
 }&#13;
 ?&gt;&#13;
-```。</description><guid isPermaLink="true">https://blog.xwdev.com/post/15.html</guid><pubDate>Sat, 04 Jan 2025 17:01:52 +0000</pubDate></item><item><title>一言 (Hitokoto) API 内容采集代码</title><link>https://blog.xwdev.com/post/14.html</link><description>将别人的一言语句采集下来，然后就拥有了一个自己的一言 API 接口了&#13;
+```。</description><guid isPermaLink="true">https://blog.xwdev.com/post/15.html</guid><pubDate>Sat, 04 Jan 2025 17:01:52 +0000</pubDate></item><item><title>一言 (Hitokoto) API 内容采集代码</title><link>https://blog.xwdev.com/post/14.html</link><description>将别人的一言语句采集下来，然后就拥有了一个自己的一言 API 接口了，搭配[一言接口源码](https://blog.xwdev.com/post/15.html)即可食用&#13;
 &#13;
 采集代码&#13;
 ```php&#13;
