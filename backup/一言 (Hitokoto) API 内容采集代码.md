@@ -3,8 +3,8 @@
 采集代码
 ```php
 <?php
-$api[] = 'http://api.moleft.cn/yiyan/api.php';
-$api[] = 'https://api.moleft.cn/yiyan/api.php';
+$api[] = 'http://域名/api.php';
+$api[] = 'https://域名/api.php';
 $contents = file_get_contents($api[mt_rand(0,count($api)-1)]);
 if(!empty($contents) && !preg_match('/'.$contents.'/',file_get_contents('./hitokoto.txt'))){
     file_put_contents('./hitokoto.txt',$contents."\n",FILE_APPEND);

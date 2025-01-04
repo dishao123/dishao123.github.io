@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>帝少博客</title><link>https://blog.xwdev.com</link><description>分享技术，享受生活</description><copyright>帝少博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/58305876?v=4</url><title>avatar</title><link>https://blog.xwdev.com</link></image><lastBuildDate>Sat, 04 Jan 2025 17:05:59 +0000</lastBuildDate><managingEditor>帝少博客</managingEditor><ttl>60</ttl><webMaster>帝少博客</webMaster><item><title>一言 API 接口源码</title><link>https://blog.xwdev.com/post/15.html</link><description>搭建一个自己的一言 API 接口，搭配上[语句采集代码](https://blog.xwdev.com/post/14.html)直接起飞&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>帝少博客</title><link>https://blog.xwdev.com</link><description>分享技术，享受生活</description><copyright>帝少博客</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://avatars.githubusercontent.com/u/58305876?v=4</url><title>avatar</title><link>https://blog.xwdev.com</link></image><lastBuildDate>Sat, 04 Jan 2025 17:09:16 +0000</lastBuildDate><managingEditor>帝少博客</managingEditor><ttl>60</ttl><webMaster>帝少博客</webMaster><item><title>一言 API 接口源码</title><link>https://blog.xwdev.com/post/15.html</link><description>搭建一个自己的一言 API 接口，搭配上[语句采集代码](https://blog.xwdev.com/post/14.html)直接起飞&#13;
 &#13;
 源码如下&#13;
 ```php&#13;
@@ -37,8 +37,8 @@ if ($_GET['encode'] === 'js') {&#13;
 采集代码&#13;
 ```php&#13;
 &lt;?php&#13;
-$api[] = 'http://api.moleft.cn/yiyan/api.php';&#13;
-$api[] = 'https://api.moleft.cn/yiyan/api.php';&#13;
+$api[] = 'http://域名/api.php';&#13;
+$api[] = 'https://域名/api.php';&#13;
 $contents = file_get_contents($api[mt_rand(0,count($api)-1)]);&#13;
 if(!empty($contents) &amp;&amp; !preg_match('/'.$contents.'/',file_get_contents('./hitokoto.txt'))){&#13;
     file_put_contents('./hitokoto.txt',$contents.'\n',FILE_APPEND);&#13;

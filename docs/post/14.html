@@ -15,8 +15,8 @@
 采集代码
 ```php
 <?php
-$api[] = 'http://api.moleft.cn/yiyan/api.php';
-$api[] = 'https://api.moleft.cn/yiyan/api.php';
+$api[] = 'http://域名/api.php';
+$api[] = 'https://域名/api.php';
 $contents = file_get_contents($api[mt_rand(0,count($api)-1)]);
 if(!empty($contents) && !preg_match('/'.$contents.'/',file_get_contents('./hitokoto.txt'))){
     file_put_contents('./hitokoto.txt',$contents.'\n',FILE_APPEND);
@@ -41,8 +41,8 @@ $api[] = '要采集的 API 地址';
 采集代码
 ```php
 <?php
-$api[] = 'http://api.moleft.cn/yiyan/api.php';
-$api[] = 'https://api.moleft.cn/yiyan/api.php';
+$api[] = 'http://域名/api.php';
+$api[] = 'https://域名/api.php';
 $contents = file_get_contents($api[mt_rand(0,count($api)-1)]);
 if(!empty($contents) && !preg_match('/'.$contents.'/',file_get_contents('./hitokoto.txt'))){
     file_put_contents('./hitokoto.txt',$contents.'\n',FILE_APPEND);
@@ -128,8 +128,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-body" id="postBody"><p>将别人的一言语句采集下来，然后就拥有了一个自己的一言 API 接口了，搭配<a href="https://blog.xwdev.com/post/15.html" rel="nofollow">一言接口源码</a>即可食用</p>
 <p>采集代码</p>
 <div class="highlight highlight-text-html-php"><pre class="notranslate"><span class="pl-ent">&lt;?php</span>
-<span class="pl-s1"><span class="pl-c1">$</span>api</span>[] = <span class="pl-s">'<span class="pl-s">http://api.moleft.cn/yiyan/api.php</span>'</span>;
-<span class="pl-s1"><span class="pl-c1">$</span>api</span>[] = <span class="pl-s">'<span class="pl-s">https://api.moleft.cn/yiyan/api.php</span>'</span>;
+<span class="pl-s1"><span class="pl-c1">$</span>api</span>[] = <span class="pl-s">'<span class="pl-s">http://域名/api.php</span>'</span>;
+<span class="pl-s1"><span class="pl-c1">$</span>api</span>[] = <span class="pl-s">'<span class="pl-s">https://域名/api.php</span>'</span>;
 <span class="pl-s1"><span class="pl-c1">$</span>contents</span> = <span class="pl-en">file_get_contents</span>(<span class="pl-s1"><span class="pl-c1">$</span>api</span>[<span class="pl-en">mt_rand</span>(<span class="pl-c1">0</span>,<span class="pl-en">count</span>(<span class="pl-s1"><span class="pl-c1">$</span>api</span>)-<span class="pl-c1">1</span>)]);
 <span class="pl-k">if</span>(!<span class="pl-en">empty</span>(<span class="pl-s1"><span class="pl-c1">$</span>contents</span>) &amp;&amp; !<span class="pl-en">preg_match</span>(<span class="pl-s">'<span class="pl-s">/</span>'</span>.<span class="pl-s1"><span class="pl-c1">$</span>contents</span>.<span class="pl-s">'<span class="pl-s">/</span>'</span>,<span class="pl-en">file_get_contents</span>(<span class="pl-s">'<span class="pl-s">./hitokoto.txt</span>'</span>))){
     <span class="pl-en">file_put_contents</span>(<span class="pl-s">'<span class="pl-s">./hitokoto.txt</span>'</span>,<span class="pl-s1"><span class="pl-c1">$</span>contents</span>.<span class="pl-s">"\n"</span>,<span class="pl-c1">FILE_APPEND</span>);
