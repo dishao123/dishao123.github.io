@@ -1207,7 +1207,7 @@ if ($this->debug)
 <meta property="og:url" content="https://blog.xwdev.com/post/8.html">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/58305876?v=4">
 <title>PHP 发送邮件源码</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -1231,7 +1231,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
 </style>
 
 
@@ -1258,590 +1268,587 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
     <div id="content">
 <div class="markdown-body" id="postBody"><p>首先，创建一个 <code class="notranslate">index.html</code> 文件</p>
-<pre lang="html" class="notranslate"><code class="notranslate">&lt;html&gt;
-&lt;head&gt;
-&lt;title&gt;Simple Send Mail &lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;h1&gt;Mail Form&lt;/h1&gt;
-&lt;form name="form1" method="post" action="mail.php"&gt;
-&lt;table&gt;
-&lt;tr&gt;&lt;td&gt;&lt;b&gt;To&lt;/b&gt;&lt;/td&gt;&lt;td&gt;
-&lt;input type="text" name="mailto" size="35"&gt;
-&lt;/td&gt;&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;&lt;b&gt;Subject&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;&lt;input type="text" name="mailsubject" size="35"&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;&lt;td&gt;&lt;b&gt;Message&lt;/b&gt;&lt;/td&gt;
-&lt;td&gt;
-&lt;textarea name="mailbody" cols="50" rows="7"&gt;&lt;/textarea&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;&lt;td colspan="2"&gt;
-&lt;input type="submit" name="Submit" value="Send"&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
+<div class="highlight highlight-text-html-basic"><pre class="notranslate"><span class="pl-kos">&lt;</span><span class="pl-ent">html</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">head</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">title</span><span class="pl-kos">&gt;</span>Simple Send Mail <span class="pl-kos">&lt;/</span><span class="pl-ent">title</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">head</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">body</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">h1</span><span class="pl-kos">&gt;</span>Mail Form<span class="pl-kos">&lt;/</span><span class="pl-ent">h1</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">form</span> <span class="pl-c1">name</span>="<span class="pl-s">form1</span>" <span class="pl-c1">method</span>="<span class="pl-s">post</span>" <span class="pl-c1">action</span>="<span class="pl-s">mail.php</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">table</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">tr</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">b</span><span class="pl-kos">&gt;</span>To<span class="pl-kos">&lt;/</span><span class="pl-ent">b</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">type</span>="<span class="pl-s">text</span>" <span class="pl-c1">name</span>="<span class="pl-s">mailto</span>" <span class="pl-c1">size</span>="<span class="pl-s">35</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">tr</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">tr</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">b</span><span class="pl-kos">&gt;</span>Subject<span class="pl-kos">&lt;/</span><span class="pl-ent">b</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">type</span>="<span class="pl-s">text</span>" <span class="pl-c1">name</span>="<span class="pl-s">mailsubject</span>" <span class="pl-c1">size</span>="<span class="pl-s">35</span>"<span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">tr</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">tr</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">b</span><span class="pl-kos">&gt;</span>Message<span class="pl-kos">&lt;/</span><span class="pl-ent">b</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">textarea</span> <span class="pl-c1">name</span>="<span class="pl-s">mailbody</span>" <span class="pl-c1">cols</span>="<span class="pl-s">50</span>" <span class="pl-c1">rows</span>="<span class="pl-s">7</span>"<span class="pl-kos">&gt;</span><span class="pl-kos">&lt;/</span><span class="pl-ent">textarea</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">tr</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">tr</span><span class="pl-kos">&gt;</span><span class="pl-kos">&lt;</span><span class="pl-ent">td</span> <span class="pl-c1">colspan</span>="<span class="pl-s">2</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;</span><span class="pl-ent">input</span> <span class="pl-c1">type</span>="<span class="pl-s">submit</span>" <span class="pl-c1">name</span>="<span class="pl-s">Submit</span>" <span class="pl-c1">value</span>="<span class="pl-s">Send</span>"<span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">td</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">tr</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">table</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">form</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">body</span><span class="pl-kos">&gt;</span>
+<span class="pl-kos">&lt;/</span><span class="pl-ent">html</span><span class="pl-kos">&gt;</span></pre></div>
 <p>然后，新建一个 <code class="notranslate">mail.php</code> 文件</p>
-<pre lang="php" class="notranslate"><code class="notranslate">&lt;?php 
-$stm="邮件内容"; 
-require("smtp.php"); 
-########################################## 
-$smtpserver = "smtp.qq.com";//SMTP服务器 
-$smtpserverport = "465";//SMTP服务器端口 
-$smtpusermail = "XXX@qq.com";//SMTP服务器的用户邮箱 
-$smtpemailto = "AAA@qq.com";//发送给谁 
-$smtpuser = "XXX@qq.com";//SMTP服务器的用户帐号 
-$smtppass = "666";//SMTP服务器的用户密码 
-$mailsubject = "666 ";//邮件主题 
-$mailbody = $stm;//邮件内容 
-$mailtype = "HTML";//邮件格式（HTML/TXT）,TXT为文本邮件 
-########################################## 
-$smtp = new smtp($smtpserver,$smtpserverport,true,$smtpuser,$smtppass);//这里面的一个true是表示使用身份验证,否则不使用身份验证. 
-$smtp-&gt;debug = TRUE;//是否显示发送的调试信息 
-$smtp-&gt;sendmail($smtpemailto, $smtpusermail, $mailsubject, $mailbody, $mailtype); 
-echo "&lt;script&gt;alert('邮件发送成功');parent.document.ADDUser.cheheh.click();&lt;/script&gt;"; 
-exit; 
+<div class="highlight highlight-text-html-php"><pre class="notranslate"><span class="pl-ent">&lt;?php</span> 
+<span class="pl-s1"><span class="pl-c1">$</span>stm</span>=<span class="pl-s">"<span class="pl-s">邮件内容</span>"</span>; 
+<span class="pl-k">require</span>(<span class="pl-s">"<span class="pl-s">smtp.php</span>"</span>); 
+<span class="pl-c">########################################## </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpserver</span> = <span class="pl-s">"<span class="pl-s">smtp.qq.com</span>"</span>;<span class="pl-c">//SMTP服务器 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpserverport</span> = <span class="pl-s">"<span class="pl-s">465</span>"</span>;<span class="pl-c">//SMTP服务器端口 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpusermail</span> = <span class="pl-s">"<span class="pl-s">XXX@qq.com</span>"</span>;<span class="pl-c">//SMTP服务器的用户邮箱 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpemailto</span> = <span class="pl-s">"<span class="pl-s">AAA@qq.com</span>"</span>;<span class="pl-c">//发送给谁 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtpuser</span> = <span class="pl-s">"<span class="pl-s">XXX@qq.com</span>"</span>;<span class="pl-c">//SMTP服务器的用户帐号 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtppass</span> = <span class="pl-s">"<span class="pl-s">666</span>"</span>;<span class="pl-c">//SMTP服务器的用户密码 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>mailsubject</span> = <span class="pl-s">"<span class="pl-s">666 </span>"</span>;<span class="pl-c">//邮件主题 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>mailbody</span> = <span class="pl-s1"><span class="pl-c1">$</span>stm</span>;<span class="pl-c">//邮件内容 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>mailtype</span> = <span class="pl-s">"<span class="pl-s">HTML</span>"</span>;<span class="pl-c">//邮件格式（HTML/TXT）,TXT为文本邮件 </span>
+<span class="pl-c">########################################## </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtp</span> = <span class="pl-k">new</span> <span class="pl-v">smtp</span>(<span class="pl-s1"><span class="pl-c1">$</span>smtpserver</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpserverport</span>,<span class="pl-c1">true</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtpuser</span>,<span class="pl-s1"><span class="pl-c1">$</span>smtppass</span>);<span class="pl-c">//这里面的一个true是表示使用身份验证,否则不使用身份验证. </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtp</span>-&gt;<span class="pl-c1">debug</span> = <span class="pl-c1">TRUE</span>;<span class="pl-c">//是否显示发送的调试信息 </span>
+<span class="pl-s1"><span class="pl-c1">$</span>smtp</span>-&gt;<span class="pl-en">sendmail</span>(<span class="pl-s1"><span class="pl-c1">$</span>smtpemailto</span>, <span class="pl-s1"><span class="pl-c1">$</span>smtpusermail</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailsubject</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailbody</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>); 
+<span class="pl-k">echo</span> <span class="pl-s">"<span class="pl-s">&lt;script&gt;alert('邮件发送成功');parent.document.ADDUser.cheheh.click();&lt;/script&gt;</span>"</span>; 
+<span class="pl-k">exit</span>; 
 } 
-?&gt;
-</code></pre>
+<span class="pl-ent">?&gt;</span></pre></div>
 <p>最后，创建一个 <code class="notranslate">smtp.php</code> 邮件类</p>
-<pre lang="php" class="notranslate"><code class="notranslate">&lt;?php 
-class smtp 
+<div class="highlight highlight-text-html-php"><pre class="notranslate"><span class="pl-ent">&lt;?php</span> 
+<span class="pl-k">class</span> smtp 
 { 
-/* Public Variables */ 
-var $smtp_port; 
-var $time_out; 
-var $host_name; 
-var $log_file; 
-var $relay_host; 
-var $debug; 
-var $auth; 
-var $user; 
-var $pass; 
-/* Private Variables */ 
-var $sock; 
-/* Constractor */ 
-function smtp($relay_host = "", $smtp_port = 25,$auth = false,$user,$pass) 
+<span class="pl-c">/* Public Variables */</span> 
+var <span class="pl-c1"><span class="pl-c1">$</span>smtp_port</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>time_out</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>host_name</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>log_file</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>relay_host</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>debug</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>auth</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>user</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>pass</span>; 
+<span class="pl-c">/* Private Variables */</span> 
+var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>; 
+<span class="pl-c">/* Constractor */</span> 
+<span class="pl-k">function</span> <span class="pl-en">smtp</span>(<span class="pl-s1"><span class="pl-c1">$</span>relay_host</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>smtp_port</span> = <span class="pl-c1">25</span>,<span class="pl-s1"><span class="pl-c1">$</span>auth</span> = <span class="pl-c1">false</span>,<span class="pl-s1"><span class="pl-c1">$</span>user</span>,<span class="pl-s1"><span class="pl-c1">$</span>pass</span>) 
 { 
-$this-&gt;debug = FALSE; 
-$this-&gt;smtp_port = $smtp_port; 
-$this-&gt;relay_host = $relay_host; 
-$this-&gt;time_out = 30; //is used in fsockopen() 
-$this-&gt;auth = $auth;//auth 
-$this-&gt;user = $user; 
-$this-&gt;pass = $pass; 
-$this-&gt;host_name = "localhost"; //is used in HELO command 
-$this-&gt;log_file = ""; 
-$this-&gt;sock = FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">debug</span> = <span class="pl-c1">FALSE</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span> = <span class="pl-s1"><span class="pl-c1">$</span>smtp_port</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span> = <span class="pl-s1"><span class="pl-c1">$</span>relay_host</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span> = <span class="pl-c1">30</span>; <span class="pl-c">//is used in fsockopen() </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span> = <span class="pl-s1"><span class="pl-c1">$</span>auth</span>;<span class="pl-c">//auth </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span> = <span class="pl-s1"><span class="pl-c1">$</span>user</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">pass</span> = <span class="pl-s1"><span class="pl-c1">$</span>pass</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">host_name</span> = <span class="pl-s">"<span class="pl-s">localhost</span>"</span>; <span class="pl-c">//is used in HELO command </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span> = <span class="pl-s">""</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> = <span class="pl-c1">FALSE</span>; 
 } 
-/* Main Function */ 
-function sendmail($to, $from, $subject = "", $body = "", $mailtype, $cc = "", $bcc = "", $additional_headers = "") 
+<span class="pl-c">/* Main Function */</span> 
+<span class="pl-k">function</span> <span class="pl-en">sendmail</span>(<span class="pl-s1"><span class="pl-c1">$</span>to</span>, <span class="pl-s1"><span class="pl-c1">$</span>from</span>, <span class="pl-s1"><span class="pl-c1">$</span>subject</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>, <span class="pl-s1"><span class="pl-c1">$</span>cc</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>bcc</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>additional_headers</span> = <span class="pl-s">""</span>) 
 { 
-$mail_from = $this-&gt;get_address($this-&gt;strip_comment($from)); 
-$body = ereg_replace("(^|(\r\n))(\.)", "\1.\3", $body); 
-$header .= "MIME-Version:1.0\r\n"; 
-if($mailtype=="HTML") 
+<span class="pl-s1"><span class="pl-c1">$</span>mail_from</span> = <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">get_address</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>from</span>)); 
+<span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s">"<span class="pl-s">(^|(</span>\r\n<span class="pl-s">))(\.)</span>"</span>, <span class="pl-s">"\1<span class="pl-s">.</span>\3"</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">MIME-Version:1.0</span>\r\n"</span>; 
+<span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>==<span class="pl-s">"<span class="pl-s">HTML</span>"</span>) 
 { 
-$header .= "Content-Type:text/html\r\n"; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Content-Type:text/html</span>\r\n"</span>; 
 } 
-$header .= "To: ".$to."\r\n"; 
-if ($cc != "") 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">To: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>to</span>.<span class="pl-s">"\r\n"</span>; 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span>cc</span> != <span class="pl-s">""</span>) 
 { 
-$header .= "Cc: ".$cc."\r\n"; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Cc: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>cc</span>.<span class="pl-s">"\r\n"</span>; 
 } 
-$header .= "From: $from&lt;".$from."&gt;\r\n"; 
-$header .= "Subject: ".$subject."\r\n"; 
-$header .= $additional_headers; 
-$header .= "Date: ".date("r")."\r\n"; 
-$header .= "X-Mailer:By Redhat (PHP/".phpversion().")\r\n"; 
-list($msec, $sec) = explode(" ", microtime()); 
-$header .= "Message-ID: &lt;".date("YmdHis", $sec).".".($msec*1000000).".".$mail_from."&gt;\r\n"; 
-$TO = explode(",", $this-&gt;strip_comment($to)); 
-if ($cc != "") 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">From: </span><span class="pl-s1"><span class="pl-c1">$</span>from</span><span class="pl-s">&lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>from</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>\r\n"</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Subject: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>subject</span>.<span class="pl-s">"\r\n"</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s1"><span class="pl-c1">$</span>additional_headers</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Date: </span>"</span>.<span class="pl-en">date</span>(<span class="pl-s">"<span class="pl-s">r</span>"</span>).<span class="pl-s">"\r\n"</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">X-Mailer:By Redhat (PHP/</span>"</span>.<span class="pl-en">phpversion</span>().<span class="pl-s">"<span class="pl-s">)</span>\r\n"</span>; 
+<span class="pl-en">list</span>(<span class="pl-s1"><span class="pl-c1">$</span>msec</span>, <span class="pl-s1"><span class="pl-c1">$</span>sec</span>) = <span class="pl-en">explode</span>(<span class="pl-s">"<span class="pl-s"> </span>"</span>, <span class="pl-en">microtime</span>()); 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Message-ID: &lt;</span>"</span>.<span class="pl-en">date</span>(<span class="pl-s">"<span class="pl-s">YmdHis</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>sec</span>).<span class="pl-s">"<span class="pl-s">.</span>"</span>.(<span class="pl-s1"><span class="pl-c1">$</span>msec</span>*<span class="pl-c1">1000000</span>).<span class="pl-s">"<span class="pl-s">.</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>mail_from</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>\r\n"</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span> = <span class="pl-en">explode</span>(<span class="pl-s">"<span class="pl-s">,</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>to</span>)); 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span>cc</span> != <span class="pl-s">""</span>) 
 { 
-$TO = array_merge($TO, explode(",", $this-&gt;strip_comment($cc))); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span> = <span class="pl-en">array_merge</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span>, <span class="pl-en">explode</span>(<span class="pl-s">"<span class="pl-s">,</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>cc</span>))); 
 } 
-if ($bcc != "") 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span>bcc</span> != <span class="pl-s">""</span>) 
 { 
-$TO = array_merge($TO, explode(",", $this-&gt;strip_comment($bcc))); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span> = <span class="pl-en">array_merge</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span>, <span class="pl-en">explode</span>(<span class="pl-s">"<span class="pl-s">,</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>bcc</span>))); 
 } 
-$sent = TRUE; 
-foreach ($TO as $rcpt_to) 
+<span class="pl-s1"><span class="pl-c1">$</span>sent</span> = <span class="pl-c1">TRUE</span>; 
+<span class="pl-k">foreach</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span> <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>) 
 { 
-$rcpt_to = $this-&gt;get_address($rcpt_to); 
-if (!$this-&gt;smtp_sockopen($rcpt_to)) 
+<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span> = <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">get_address</span>(<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>); 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_sockopen</span>(<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>)) 
 { 
-$this-&gt;log_write("Error: Cannot send email to ".$rcpt_to."\n"); 
-$sent = FALSE; 
-continue; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot send email to </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span>sent</span> = <span class="pl-c1">FALSE</span>; 
+<span class="pl-k">continue</span>; 
 } 
-if ($this-&gt;smtp_send($this-&gt;host_name, $mail_from, $rcpt_to, $header, $body)) 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_send</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">host_name</span>, <span class="pl-s1"><span class="pl-c1">$</span>mail_from</span>, <span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span>)) 
 { 
-$this-&gt;log_write("E-mail has been sent to &lt;".$rcpt_to."&gt;\n"); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">E-mail has been sent to &lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>\n"</span>); 
 } 
-else 
+<span class="pl-k">else</span> 
 { 
-$this-&gt;log_write("Error: Cannot send email to &lt;".$rcpt_to."&gt;\n"); 
-$sent = FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot send email to &lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span>sent</span> = <span class="pl-c1">FALSE</span>; 
 } 
-fclose($this-&gt;sock); 
-$this-&gt;log_write("Disconnected from remote host\n"); 
+<span class="pl-en">fclose</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Disconnected from remote host</span>\n"</span>); 
 } 
-return $sent; 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>sent</span>; 
 } 
-/* Private Functions */ 
-function smtp_send($helo, $from, $to, $header, $body = "") 
+<span class="pl-c">/* Private Functions */</span> 
+<span class="pl-k">function</span> <span class="pl-en">smtp_send</span>(<span class="pl-s1"><span class="pl-c1">$</span>helo</span>, <span class="pl-s1"><span class="pl-c1">$</span>from</span>, <span class="pl-s1"><span class="pl-c1">$</span>to</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-s">""</span>) 
 { 
-if (!$this-&gt;smtp_putcmd("HELO", $helo)) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">HELO</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>helo</span>)) 
 { 
-return $this-&gt;smtp_error("sending HELO command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
-#auth 
-if($this-&gt;auth) 
+<span class="pl-c">#auth </span>
+<span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span>) 
 { 
-if (!$this-&gt;smtp_putcmd("AUTH LOGIN", base64_encode($this-&gt;user))) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">AUTH LOGIN</span>"</span>, <span class="pl-en">base64_encode</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span>))) 
 { 
-return $this-&gt;smtp_error("sending HELO command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
-if (!$this-&gt;smtp_putcmd("", base64_encode($this-&gt;pass))) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">""</span>, <span class="pl-en">base64_encode</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">pass</span>))) 
 { 
-return $this-&gt;smtp_error("sending HELO command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
 } 
-if (!$this-&gt;smtp_putcmd("MAIL", "FROM:&lt;".$from."&gt;")) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">MAIL</span>"</span>, <span class="pl-s">"<span class="pl-s">FROM:&lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>from</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>"</span>)) 
 { 
-return $this-&gt;smtp_error("sending MAIL FROM command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending MAIL FROM command</span>"</span>); 
 } 
-if (!$this-&gt;smtp_putcmd("RCPT", "TO:&lt;".$to."&gt;")) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">RCPT</span>"</span>, <span class="pl-s">"<span class="pl-s">TO:&lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>to</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>"</span>)) 
 { 
-return $this-&gt;smtp_error("sending RCPT TO command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending RCPT TO command</span>"</span>); 
 } 
-if (!$this-&gt;smtp_putcmd("DATA")) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">DATA</span>"</span>)) 
 { 
-return $this-&gt;smtp_error("sending DATA command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending DATA command</span>"</span>); 
 } 
-if (!$this-&gt;smtp_message($header, $body)) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_message</span>(<span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span>)) 
 { 
-return $this-&gt;smtp_error("sending message"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending message</span>"</span>); 
 } 
-if (!$this-&gt;smtp_eom()) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_eom</span>()) 
 { 
-return $this-&gt;smtp_error("sending &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt; [EOM]"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt; [EOM]</span>"</span>); 
 } 
-if (!$this-&gt;smtp_putcmd("QUIT")) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">QUIT</span>"</span>)) 
 { 
-return $this-&gt;smtp_error("sending QUIT command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending QUIT command</span>"</span>); 
 } 
-return TRUE; 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-function smtp_sockopen($address) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_sockopen</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>) 
 { 
-if ($this-&gt;relay_host == "") 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span> == <span class="pl-s">""</span>) 
 { 
-return $this-&gt;smtp_sockopen_mx($address); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_sockopen_mx</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
 } 
-else 
+<span class="pl-k">else</span> 
 { 
-return $this-&gt;smtp_sockopen_relay(); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_sockopen_relay</span>(); 
 } 
 } 
-function smtp_sockopen_relay() 
+<span class="pl-k">function</span> <span class="pl-en">smtp_sockopen_relay</span>() 
 { 
-$this-&gt;log_write("Trying to ".$this-&gt;relay_host.":".$this-&gt;smtp_port."\n"); 
-$this-&gt;sock = @fsockopen($this-&gt;relay_host, $this-&gt;smtp_port, $errno, $errstr, $this-&gt;time_out); 
-if (!($this-&gt;sock &amp;&amp; $this-&gt;smtp_ok())) 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Trying to </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span>.<span class="pl-s">"<span class="pl-s">:</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> = @<span class="pl-en">fsockopen</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span>, <span class="pl-s1"><span class="pl-c1">$</span>errno</span>, <span class="pl-s1"><span class="pl-c1">$</span>errstr</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span>); 
+<span class="pl-k">if</span> (!(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> &amp;&amp; <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_ok</span>())) 
 { 
-$this-&gt;log_write("Error: Cannot connenct to relay host ".$this-&gt;relay_host."\n"); 
-$this-&gt;log_write("Error: ".$errstr." (".$errno.")\n"); 
-return FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot connenct to relay host </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>errstr</span>.<span class="pl-s">"<span class="pl-s"> (</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>errno</span>.<span class="pl-s">"<span class="pl-s">)</span>\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-$this-&gt;log_write("Connected to relay host ".$this-&gt;relay_host."\n"); 
-return TRUE;; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Connected to relay host </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>;; 
 } 
-function smtp_sockopen_mx($address) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_sockopen_mx</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>) 
 { 
-$domain = ereg_replace("^.+@([^@]+)$", "\1", $address); 
-if (!@getmxrr($domain, $MXHOSTS)) 
+<span class="pl-s1"><span class="pl-c1">$</span>domain</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s">"<span class="pl-s">^.+@([^@]+)$</span>"</span>, <span class="pl-s">"\1"</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
+<span class="pl-k">if</span> (!@<span class="pl-en">getmxrr</span>(<span class="pl-s1"><span class="pl-c1">$</span>domain</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">MXHOSTS</span></span>)) 
 { 
-$this-&gt;log_write("Error: Cannot resolve MX \"".$domain."\"\n"); 
-return FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot resolve MX </span>\""</span>.<span class="pl-s1"><span class="pl-c1">$</span>domain</span>.<span class="pl-s">"\"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-foreach ($MXHOSTS as $host) 
+<span class="pl-k">foreach</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">MXHOSTS</span></span> <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>host</span>) 
 { 
-$this-&gt;log_write("Trying to ".$host.":".$this-&gt;smtp_port."\n"); 
-$this-&gt;sock = @fsockopen($host, $this-&gt;smtp_port, $errno, $errstr, $this-&gt;time_out); 
-if (!($this-&gt;sock &amp;&amp; $this-&gt;smtp_ok())) 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Trying to </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>host</span>.<span class="pl-s">"<span class="pl-s">:</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> = @<span class="pl-en">fsockopen</span>(<span class="pl-s1"><span class="pl-c1">$</span>host</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span>, <span class="pl-s1"><span class="pl-c1">$</span>errno</span>, <span class="pl-s1"><span class="pl-c1">$</span>errstr</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span>); 
+<span class="pl-k">if</span> (!(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> &amp;&amp; <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_ok</span>())) 
 { 
-$this-&gt;log_write("Warning: Cannot connect to mx host ".$host."\n"); 
-$this-&gt;log_write("Error: ".$errstr." (".$errno.")\n"); 
-continue; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Warning: Cannot connect to mx host </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>host</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>errstr</span>.<span class="pl-s">"<span class="pl-s"> (</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>errno</span>.<span class="pl-s">"<span class="pl-s">)</span>\n"</span>); 
+<span class="pl-k">continue</span>; 
 } 
-$this-&gt;log_write("Connected to mx host ".$host."\n"); 
-return TRUE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Connected to mx host </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>host</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-$this-&gt;log_write("Error: Cannot connect to any mx hosts (".implode(", ", $MXHOSTS).")\n"); 
-return FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot connect to any mx hosts (</span>"</span>.<span class="pl-en">implode</span>(<span class="pl-s">"<span class="pl-s">, </span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">MXHOSTS</span></span>).<span class="pl-s">"<span class="pl-s">)</span>\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-function smtp_message($header, $body) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_message</span>(<span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span>) 
 { 
-fputs($this-&gt;sock, $header."\r\n".$body); 
-$this-&gt;smtp_debug("&gt; ".str_replace("\r\n", "\n"."&gt; ", $header."\n&gt; ".$body."\n&gt; ")); 
-return TRUE; 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>.<span class="pl-s">"\r\n"</span>.<span class="pl-s1"><span class="pl-c1">$</span>body</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s">"<span class="pl-s">&gt; </span>"</span>.<span class="pl-en">str_replace</span>(<span class="pl-s">"\r\n"</span>, <span class="pl-s">"\n"</span>.<span class="pl-s">"<span class="pl-s">&gt; </span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>.<span class="pl-s">"\n<span class="pl-s">&gt; </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>body</span>.<span class="pl-s">"\n<span class="pl-s">&gt; </span>"</span>)); 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-function smtp_eom() 
+<span class="pl-k">function</span> <span class="pl-en">smtp_eom</span>() 
 { 
-fputs($this-&gt;sock, "\r\n.\r\n"); 
-$this-&gt;smtp_debug(". [EOM]\n"); 
-return $this-&gt;smtp_ok(); 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-s">"\r\n<span class="pl-s">.</span>\r\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s">"<span class="pl-s">. [EOM]</span>\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_ok</span>(); 
 } 
-function smtp_ok() 
+<span class="pl-k">function</span> <span class="pl-en">smtp_ok</span>() 
 { 
-$response = str_replace("\r\n", "", fgets($this-&gt;sock, 512)); 
-$this-&gt;smtp_debug($response."\n"); 
-if (!ereg("^[23]", $response)) 
+<span class="pl-s1"><span class="pl-c1">$</span>response</span> = <span class="pl-en">str_replace</span>(<span class="pl-s">"\r\n"</span>, <span class="pl-s">""</span>, <span class="pl-en">fgets</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-c1">512</span>)); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s1"><span class="pl-c1">$</span>response</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-k">if</span> (!<span class="pl-en">ereg</span>(<span class="pl-s">"<span class="pl-s">^[23]</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>response</span>)) 
 { 
-fputs($this-&gt;sock, "QUIT\r\n"); 
-fgets($this-&gt;sock, 512); 
-$this-&gt;log_write("Error: Remote host returned \"".$response."\"\n"); 
-return FALSE; 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-s">"<span class="pl-s">QUIT</span>\r\n"</span>); 
+<span class="pl-en">fgets</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-c1">512</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Remote host returned </span>\""</span>.<span class="pl-s1"><span class="pl-c1">$</span>response</span>.<span class="pl-s">"\"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-return TRUE; 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-function smtp_putcmd($cmd, $arg = "") 
+<span class="pl-k">function</span> <span class="pl-en">smtp_putcmd</span>(<span class="pl-s1"><span class="pl-c1">$</span>cmd</span>, <span class="pl-s1"><span class="pl-c1">$</span>arg</span> = <span class="pl-s">""</span>) 
 { 
-if ($arg != "") 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span>arg</span> != <span class="pl-s">""</span>) 
 { 
-if($cmd=="") 
+<span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span>cmd</span>==<span class="pl-s">""</span>) 
 { 
-$cmd = $arg; 
+<span class="pl-s1"><span class="pl-c1">$</span>cmd</span> = <span class="pl-s1"><span class="pl-c1">$</span>arg</span>; 
 } 
-else 
+<span class="pl-k">else</span> 
 { 
-$cmd = $cmd." ".$arg; 
+<span class="pl-s1"><span class="pl-c1">$</span>cmd</span> = <span class="pl-s1"><span class="pl-c1">$</span>cmd</span>.<span class="pl-s">"<span class="pl-s"> </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>arg</span>; 
 } 
 } 
-fputs($this-&gt;sock, $cmd."\r\n"); 
-$this-&gt;smtp_debug("&gt; ".$cmd."\n"); 
-return $this-&gt;smtp_ok(); 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-s1"><span class="pl-c1">$</span>cmd</span>.<span class="pl-s">"\r\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s">"<span class="pl-s">&gt; </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>cmd</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_ok</span>(); 
 } 
-function smtp_error($string) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_error</span>(<span class="pl-s1"><span class="pl-c1">$</span>string</span>) 
 { 
-$this-&gt;log_write("Error: Error occurred while ".$string.".\n"); 
-return FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Error occurred while </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>string</span>.<span class="pl-s">"<span class="pl-s">.</span>\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-function log_write($message) 
+<span class="pl-k">function</span> <span class="pl-en">log_write</span>(<span class="pl-s1"><span class="pl-c1">$</span>message</span>) 
 { 
-$this-&gt;smtp_debug($message); 
-if ($this-&gt;log_file == "") 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s1"><span class="pl-c1">$</span>message</span>); 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span> == <span class="pl-s">""</span>) 
 { 
-return TRUE; 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-$message = date("M d H:i:s ").get_current_user()."[".getmypid()."]: ".$message; 
-if (!@file_exists($this-&gt;log_file) || !($fp = @fopen($this-&gt;log_file, "a"))) 
+<span class="pl-s1"><span class="pl-c1">$</span>message</span> = <span class="pl-en">date</span>(<span class="pl-s">"<span class="pl-s">M d H:i:s </span>"</span>).<span class="pl-en">get_current_user</span>().<span class="pl-s">"<span class="pl-s">[</span>"</span>.<span class="pl-en">getmypid</span>().<span class="pl-s">"<span class="pl-s">]: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>message</span>; 
+<span class="pl-k">if</span> (!@<span class="pl-en">file_exists</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span>) || !(<span class="pl-s1"><span class="pl-c1">$</span>fp</span> = @<span class="pl-en">fopen</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span>, <span class="pl-s">"<span class="pl-s">a</span>"</span>))) 
 { 
-$this-&gt;smtp_debug("Warning: Cannot open log file \"".$this-&gt;log_file."\"\n"); 
-return FALSE;; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s">"<span class="pl-s">Warning: Cannot open log file </span>\""</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span>.<span class="pl-s">"\"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>;; 
 } 
-flock($fp, LOCK_EX); 
-fputs($fp, $message); 
-fclose($fp); 
-return TRUE; 
+<span class="pl-en">flock</span>(<span class="pl-s1"><span class="pl-c1">$</span>fp</span>, <span class="pl-c1">LOCK_EX</span>); 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span>fp</span>, <span class="pl-s1"><span class="pl-c1">$</span>message</span>); 
+<span class="pl-en">fclose</span>(<span class="pl-s1"><span class="pl-c1">$</span>fp</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-function strip_comment($address) 
+<span class="pl-k">function</span> <span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>) 
 { 
-$comment = "\([^()]*\)"; 
-while (ereg($comment, $address)) 
+<span class="pl-s1"><span class="pl-c1">$</span>comment</span> = <span class="pl-s">"<span class="pl-s">\([^()]*\)</span>"</span>; 
+<span class="pl-k">while</span> (<span class="pl-en">ereg</span>(<span class="pl-s1"><span class="pl-c1">$</span>comment</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>)) 
 { 
-$address = ereg_replace($comment, "", $address); 
+<span class="pl-s1"><span class="pl-c1">$</span>address</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s1"><span class="pl-c1">$</span>comment</span>, <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
 } 
-return $address; 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>address</span>; 
 } 
-function get_address($address) 
+<span class="pl-k">function</span> <span class="pl-en">get_address</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>) 
 { 
-$address = ereg_replace("([ \t\r\n])+", "", $address); 
-$address = ereg_replace("^.*&lt;(.+)&gt;.*$", "\1", $address); 
-return $address; 
+<span class="pl-s1"><span class="pl-c1">$</span>address</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s">"<span class="pl-s">([ </span>\t\r\n<span class="pl-s">])+</span>"</span>, <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span>address</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s">"<span class="pl-s">^.*&lt;(.+)&gt;.*$</span>"</span>, <span class="pl-s">"\1"</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>address</span>; 
 } 
-function smtp_debug($message) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_debug</span>(<span class="pl-s1"><span class="pl-c1">$</span>message</span>) 
 { 
-if ($this-&gt;debug) 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">debug</span>) 
 { 
-//echo $message; 
+<span class="pl-c">//echo $message; </span>
 } 
 } 
 } 
-?&gt;&lt;?php 
-class smtp 
+<span class="pl-ent">?&gt;</span><span class="pl-ent">&lt;?php</span> 
+<span class="pl-k">class</span> smtp 
 { 
-/* Public Variables */ 
-var $smtp_port; 
-var $time_out; 
-var $host_name; 
-var $log_file; 
-var $relay_host; 
-var $debug; 
-var $auth; 
-var $user; 
-var $pass; 
-/* Private Variables */ 
-var $sock; 
-/* Constractor */ 
-function smtp($relay_host = "", $smtp_port = 25,$auth = false,$user,$pass) 
+<span class="pl-c">/* Public Variables */</span> 
+var <span class="pl-c1"><span class="pl-c1">$</span>smtp_port</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>time_out</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>host_name</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>log_file</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>relay_host</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>debug</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>auth</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>user</span>; 
+var <span class="pl-c1"><span class="pl-c1">$</span>pass</span>; 
+<span class="pl-c">/* Private Variables */</span> 
+var <span class="pl-c1"><span class="pl-c1">$</span>sock</span>; 
+<span class="pl-c">/* Constractor */</span> 
+<span class="pl-k">function</span> <span class="pl-en">smtp</span>(<span class="pl-s1"><span class="pl-c1">$</span>relay_host</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>smtp_port</span> = <span class="pl-c1">25</span>,<span class="pl-s1"><span class="pl-c1">$</span>auth</span> = <span class="pl-c1">false</span>,<span class="pl-s1"><span class="pl-c1">$</span>user</span>,<span class="pl-s1"><span class="pl-c1">$</span>pass</span>) 
 { 
-$this-&gt;debug = FALSE; 
-$this-&gt;smtp_port = $smtp_port; 
-$this-&gt;relay_host = $relay_host; 
-$this-&gt;time_out = 30; //is used in fsockopen() 
-$this-&gt;auth = $auth;//auth 
-$this-&gt;user = $user; 
-$this-&gt;pass = $pass; 
-$this-&gt;host_name = "localhost"; //is used in HELO command 
-$this-&gt;log_file = ""; 
-$this-&gt;sock = FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">debug</span> = <span class="pl-c1">FALSE</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span> = <span class="pl-s1"><span class="pl-c1">$</span>smtp_port</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span> = <span class="pl-s1"><span class="pl-c1">$</span>relay_host</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span> = <span class="pl-c1">30</span>; <span class="pl-c">//is used in fsockopen() </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span> = <span class="pl-s1"><span class="pl-c1">$</span>auth</span>;<span class="pl-c">//auth </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span> = <span class="pl-s1"><span class="pl-c1">$</span>user</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">pass</span> = <span class="pl-s1"><span class="pl-c1">$</span>pass</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">host_name</span> = <span class="pl-s">"<span class="pl-s">localhost</span>"</span>; <span class="pl-c">//is used in HELO command </span>
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span> = <span class="pl-s">""</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> = <span class="pl-c1">FALSE</span>; 
 } 
-/* Main Function */ 
-function sendmail($to, $from, $subject = "", $body = "", $mailtype, $cc = "", $bcc = "", $additional_headers = "") 
+<span class="pl-c">/* Main Function */</span> 
+<span class="pl-k">function</span> <span class="pl-en">sendmail</span>(<span class="pl-s1"><span class="pl-c1">$</span>to</span>, <span class="pl-s1"><span class="pl-c1">$</span>from</span>, <span class="pl-s1"><span class="pl-c1">$</span>subject</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>, <span class="pl-s1"><span class="pl-c1">$</span>cc</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>bcc</span> = <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>additional_headers</span> = <span class="pl-s">""</span>) 
 { 
-$mail_from = $this-&gt;get_address($this-&gt;strip_comment($from)); 
-$body = ereg_replace("(^|(\r\n))(\.)", "\1.\3", $body); 
-$header .= "MIME-Version:1.0\r\n"; 
-if($mailtype=="HTML") 
+<span class="pl-s1"><span class="pl-c1">$</span>mail_from</span> = <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">get_address</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>from</span>)); 
+<span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s">"<span class="pl-s">(^|(</span>\r\n<span class="pl-s">))(\.)</span>"</span>, <span class="pl-s">"\1<span class="pl-s">.</span>\3"</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">MIME-Version:1.0</span>\r\n"</span>; 
+<span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span>mailtype</span>==<span class="pl-s">"<span class="pl-s">HTML</span>"</span>) 
 { 
-$header .= "Content-Type:text/html\r\n"; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Content-Type:text/html</span>\r\n"</span>; 
 } 
-$header .= "To: ".$to."\r\n"; 
-if ($cc != "") 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">To: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>to</span>.<span class="pl-s">"\r\n"</span>; 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span>cc</span> != <span class="pl-s">""</span>) 
 { 
-$header .= "Cc: ".$cc."\r\n"; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Cc: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>cc</span>.<span class="pl-s">"\r\n"</span>; 
 } 
-$header .= "From: $from&lt;".$from."&gt;\r\n"; 
-$header .= "Subject: ".$subject."\r\n"; 
-$header .= $additional_headers; 
-$header .= "Date: ".date("r")."\r\n"; 
-$header .= "X-Mailer:By Redhat (PHP/".phpversion().")\r\n"; 
-list($msec, $sec) = explode(" ", microtime()); 
-$header .= "Message-ID: &lt;".date("YmdHis", $sec).".".($msec*1000000).".".$mail_from."&gt;\r\n"; 
-$TO = explode(",", $this-&gt;strip_comment($to)); 
-if ($cc != "") 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">From: </span><span class="pl-s1"><span class="pl-c1">$</span>from</span><span class="pl-s">&lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>from</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>\r\n"</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Subject: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>subject</span>.<span class="pl-s">"\r\n"</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s1"><span class="pl-c1">$</span>additional_headers</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Date: </span>"</span>.<span class="pl-en">date</span>(<span class="pl-s">"<span class="pl-s">r</span>"</span>).<span class="pl-s">"\r\n"</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">X-Mailer:By Redhat (PHP/</span>"</span>.<span class="pl-en">phpversion</span>().<span class="pl-s">"<span class="pl-s">)</span>\r\n"</span>; 
+<span class="pl-en">list</span>(<span class="pl-s1"><span class="pl-c1">$</span>msec</span>, <span class="pl-s1"><span class="pl-c1">$</span>sec</span>) = <span class="pl-en">explode</span>(<span class="pl-s">"<span class="pl-s"> </span>"</span>, <span class="pl-en">microtime</span>()); 
+<span class="pl-s1"><span class="pl-c1">$</span>header</span> .= <span class="pl-s">"<span class="pl-s">Message-ID: &lt;</span>"</span>.<span class="pl-en">date</span>(<span class="pl-s">"<span class="pl-s">YmdHis</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>sec</span>).<span class="pl-s">"<span class="pl-s">.</span>"</span>.(<span class="pl-s1"><span class="pl-c1">$</span>msec</span>*<span class="pl-c1">1000000</span>).<span class="pl-s">"<span class="pl-s">.</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>mail_from</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>\r\n"</span>; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span> = <span class="pl-en">explode</span>(<span class="pl-s">"<span class="pl-s">,</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>to</span>)); 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span>cc</span> != <span class="pl-s">""</span>) 
 { 
-$TO = array_merge($TO, explode(",", $this-&gt;strip_comment($cc))); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span> = <span class="pl-en">array_merge</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span>, <span class="pl-en">explode</span>(<span class="pl-s">"<span class="pl-s">,</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>cc</span>))); 
 } 
-if ($bcc != "") 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span>bcc</span> != <span class="pl-s">""</span>) 
 { 
-$TO = array_merge($TO, explode(",", $this-&gt;strip_comment($bcc))); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span> = <span class="pl-en">array_merge</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span>, <span class="pl-en">explode</span>(<span class="pl-s">"<span class="pl-s">,</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>bcc</span>))); 
 } 
-$sent = TRUE; 
-foreach ($TO as $rcpt_to) 
+<span class="pl-s1"><span class="pl-c1">$</span>sent</span> = <span class="pl-c1">TRUE</span>; 
+<span class="pl-k">foreach</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">TO</span></span> <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>) 
 { 
-$rcpt_to = $this-&gt;get_address($rcpt_to); 
-if (!$this-&gt;smtp_sockopen($rcpt_to)) 
+<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span> = <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">get_address</span>(<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>); 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_sockopen</span>(<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>)) 
 { 
-$this-&gt;log_write("Error: Cannot send email to ".$rcpt_to."\n"); 
-$sent = FALSE; 
-continue; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot send email to </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span>sent</span> = <span class="pl-c1">FALSE</span>; 
+<span class="pl-k">continue</span>; 
 } 
-if ($this-&gt;smtp_send($this-&gt;host_name, $mail_from, $rcpt_to, $header, $body)) 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_send</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">host_name</span>, <span class="pl-s1"><span class="pl-c1">$</span>mail_from</span>, <span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span>)) 
 { 
-$this-&gt;log_write("E-mail has been sent to &lt;".$rcpt_to."&gt;\n"); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">E-mail has been sent to &lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>\n"</span>); 
 } 
-else 
+<span class="pl-k">else</span> 
 { 
-$this-&gt;log_write("Error: Cannot send email to &lt;".$rcpt_to."&gt;\n"); 
-$sent = FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot send email to &lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>rcpt_to</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span>sent</span> = <span class="pl-c1">FALSE</span>; 
 } 
-fclose($this-&gt;sock); 
-$this-&gt;log_write("Disconnected from remote host\n"); 
+<span class="pl-en">fclose</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Disconnected from remote host</span>\n"</span>); 
 } 
-return $sent; 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>sent</span>; 
 } 
-/* Private Functions */ 
-function smtp_send($helo, $from, $to, $header, $body = "") 
+<span class="pl-c">/* Private Functions */</span> 
+<span class="pl-k">function</span> <span class="pl-en">smtp_send</span>(<span class="pl-s1"><span class="pl-c1">$</span>helo</span>, <span class="pl-s1"><span class="pl-c1">$</span>from</span>, <span class="pl-s1"><span class="pl-c1">$</span>to</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span> = <span class="pl-s">""</span>) 
 { 
-if (!$this-&gt;smtp_putcmd("HELO", $helo)) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">HELO</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>helo</span>)) 
 { 
-return $this-&gt;smtp_error("sending HELO command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
-#auth 
-if($this-&gt;auth) 
+<span class="pl-c">#auth </span>
+<span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">auth</span>) 
 { 
-if (!$this-&gt;smtp_putcmd("AUTH LOGIN", base64_encode($this-&gt;user))) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">AUTH LOGIN</span>"</span>, <span class="pl-en">base64_encode</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">user</span>))) 
 { 
-return $this-&gt;smtp_error("sending HELO command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
-if (!$this-&gt;smtp_putcmd("", base64_encode($this-&gt;pass))) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">""</span>, <span class="pl-en">base64_encode</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">pass</span>))) 
 { 
-return $this-&gt;smtp_error("sending HELO command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending HELO command</span>"</span>); 
 } 
 } 
-if (!$this-&gt;smtp_putcmd("MAIL", "FROM:&lt;".$from."&gt;")) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">MAIL</span>"</span>, <span class="pl-s">"<span class="pl-s">FROM:&lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>from</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>"</span>)) 
 { 
-return $this-&gt;smtp_error("sending MAIL FROM command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending MAIL FROM command</span>"</span>); 
 } 
-if (!$this-&gt;smtp_putcmd("RCPT", "TO:&lt;".$to."&gt;")) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">RCPT</span>"</span>, <span class="pl-s">"<span class="pl-s">TO:&lt;</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>to</span>.<span class="pl-s">"<span class="pl-s">&gt;</span>"</span>)) 
 { 
-return $this-&gt;smtp_error("sending RCPT TO command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending RCPT TO command</span>"</span>); 
 } 
-if (!$this-&gt;smtp_putcmd("DATA")) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">DATA</span>"</span>)) 
 { 
-return $this-&gt;smtp_error("sending DATA command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending DATA command</span>"</span>); 
 } 
-if (!$this-&gt;smtp_message($header, $body)) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_message</span>(<span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span>)) 
 { 
-return $this-&gt;smtp_error("sending message"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending message</span>"</span>); 
 } 
-if (!$this-&gt;smtp_eom()) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_eom</span>()) 
 { 
-return $this-&gt;smtp_error("sending &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt; [EOM]"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending &lt;CR&gt;&lt;LF&gt;.&lt;CR&gt;&lt;LF&gt; [EOM]</span>"</span>); 
 } 
-if (!$this-&gt;smtp_putcmd("QUIT")) 
+<span class="pl-k">if</span> (!<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_putcmd</span>(<span class="pl-s">"<span class="pl-s">QUIT</span>"</span>)) 
 { 
-return $this-&gt;smtp_error("sending QUIT command"); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_error</span>(<span class="pl-s">"<span class="pl-s">sending QUIT command</span>"</span>); 
 } 
-return TRUE; 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-function smtp_sockopen($address) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_sockopen</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>) 
 { 
-if ($this-&gt;relay_host == "") 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span> == <span class="pl-s">""</span>) 
 { 
-return $this-&gt;smtp_sockopen_mx($address); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_sockopen_mx</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
 } 
-else 
+<span class="pl-k">else</span> 
 { 
-return $this-&gt;smtp_sockopen_relay(); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_sockopen_relay</span>(); 
 } 
 } 
-function smtp_sockopen_relay() 
+<span class="pl-k">function</span> <span class="pl-en">smtp_sockopen_relay</span>() 
 { 
-$this-&gt;log_write("Trying to ".$this-&gt;relay_host.":".$this-&gt;smtp_port."\n"); 
-$this-&gt;sock = @fsockopen($this-&gt;relay_host, $this-&gt;smtp_port, $errno, $errstr, $this-&gt;time_out); 
-if (!($this-&gt;sock &amp;&amp; $this-&gt;smtp_ok())) 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Trying to </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span>.<span class="pl-s">"<span class="pl-s">:</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> = @<span class="pl-en">fsockopen</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span>, <span class="pl-s1"><span class="pl-c1">$</span>errno</span>, <span class="pl-s1"><span class="pl-c1">$</span>errstr</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span>); 
+<span class="pl-k">if</span> (!(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> &amp;&amp; <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_ok</span>())) 
 { 
-$this-&gt;log_write("Error: Cannot connenct to relay host ".$this-&gt;relay_host."\n"); 
-$this-&gt;log_write("Error: ".$errstr." (".$errno.")\n"); 
-return FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot connenct to relay host </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>errstr</span>.<span class="pl-s">"<span class="pl-s"> (</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>errno</span>.<span class="pl-s">"<span class="pl-s">)</span>\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-$this-&gt;log_write("Connected to relay host ".$this-&gt;relay_host."\n"); 
-return TRUE;; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Connected to relay host </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">relay_host</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>;; 
 } 
-function smtp_sockopen_mx($address) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_sockopen_mx</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>) 
 { 
-$domain = ereg_replace("^.+@([^@]+)$", "\1", $address); 
-if (!@getmxrr($domain, $MXHOSTS)) 
+<span class="pl-s1"><span class="pl-c1">$</span>domain</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s">"<span class="pl-s">^.+@([^@]+)$</span>"</span>, <span class="pl-s">"\1"</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
+<span class="pl-k">if</span> (!@<span class="pl-en">getmxrr</span>(<span class="pl-s1"><span class="pl-c1">$</span>domain</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">MXHOSTS</span></span>)) 
 { 
-$this-&gt;log_write("Error: Cannot resolve MX \"".$domain."\"\n"); 
-return FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot resolve MX </span>\""</span>.<span class="pl-s1"><span class="pl-c1">$</span>domain</span>.<span class="pl-s">"\"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-foreach ($MXHOSTS as $host) 
+<span class="pl-k">foreach</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">MXHOSTS</span></span> <span class="pl-k">as</span> <span class="pl-s1"><span class="pl-c1">$</span>host</span>) 
 { 
-$this-&gt;log_write("Trying to ".$host.":".$this-&gt;smtp_port."\n"); 
-$this-&gt;sock = @fsockopen($host, $this-&gt;smtp_port, $errno, $errstr, $this-&gt;time_out); 
-if (!($this-&gt;sock &amp;&amp; $this-&gt;smtp_ok())) 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Trying to </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>host</span>.<span class="pl-s">"<span class="pl-s">:</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> = @<span class="pl-en">fsockopen</span>(<span class="pl-s1"><span class="pl-c1">$</span>host</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">smtp_port</span>, <span class="pl-s1"><span class="pl-c1">$</span>errno</span>, <span class="pl-s1"><span class="pl-c1">$</span>errstr</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">time_out</span>); 
+<span class="pl-k">if</span> (!(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span> &amp;&amp; <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_ok</span>())) 
 { 
-$this-&gt;log_write("Warning: Cannot connect to mx host ".$host."\n"); 
-$this-&gt;log_write("Error: ".$errstr." (".$errno.")\n"); 
-continue; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Warning: Cannot connect to mx host </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>host</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>errstr</span>.<span class="pl-s">"<span class="pl-s"> (</span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>errno</span>.<span class="pl-s">"<span class="pl-s">)</span>\n"</span>); 
+<span class="pl-k">continue</span>; 
 } 
-$this-&gt;log_write("Connected to mx host ".$host."\n"); 
-return TRUE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Connected to mx host </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>host</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-$this-&gt;log_write("Error: Cannot connect to any mx hosts (".implode(", ", $MXHOSTS).")\n"); 
-return FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Cannot connect to any mx hosts (</span>"</span>.<span class="pl-en">implode</span>(<span class="pl-s">"<span class="pl-s">, </span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-c1">MXHOSTS</span></span>).<span class="pl-s">"<span class="pl-s">)</span>\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-function smtp_message($header, $body) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_message</span>(<span class="pl-s1"><span class="pl-c1">$</span>header</span>, <span class="pl-s1"><span class="pl-c1">$</span>body</span>) 
 { 
-fputs($this-&gt;sock, $header."\r\n".$body); 
-$this-&gt;smtp_debug("&gt; ".str_replace("\r\n", "\n"."&gt; ", $header."\n&gt; ".$body."\n&gt; ")); 
-return TRUE; 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>.<span class="pl-s">"\r\n"</span>.<span class="pl-s1"><span class="pl-c1">$</span>body</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s">"<span class="pl-s">&gt; </span>"</span>.<span class="pl-en">str_replace</span>(<span class="pl-s">"\r\n"</span>, <span class="pl-s">"\n"</span>.<span class="pl-s">"<span class="pl-s">&gt; </span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>header</span>.<span class="pl-s">"\n<span class="pl-s">&gt; </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>body</span>.<span class="pl-s">"\n<span class="pl-s">&gt; </span>"</span>)); 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-function smtp_eom() 
+<span class="pl-k">function</span> <span class="pl-en">smtp_eom</span>() 
 { 
-fputs($this-&gt;sock, "\r\n.\r\n"); 
-$this-&gt;smtp_debug(". [EOM]\n"); 
-return $this-&gt;smtp_ok(); 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-s">"\r\n<span class="pl-s">.</span>\r\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s">"<span class="pl-s">. [EOM]</span>\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_ok</span>(); 
 } 
-function smtp_ok() 
+<span class="pl-k">function</span> <span class="pl-en">smtp_ok</span>() 
 { 
-$response = str_replace("\r\n", "", fgets($this-&gt;sock, 512)); 
-$this-&gt;smtp_debug($response."\n"); 
-if (!ereg("^[23]", $response)) 
+<span class="pl-s1"><span class="pl-c1">$</span>response</span> = <span class="pl-en">str_replace</span>(<span class="pl-s">"\r\n"</span>, <span class="pl-s">""</span>, <span class="pl-en">fgets</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-c1">512</span>)); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s1"><span class="pl-c1">$</span>response</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-k">if</span> (!<span class="pl-en">ereg</span>(<span class="pl-s">"<span class="pl-s">^[23]</span>"</span>, <span class="pl-s1"><span class="pl-c1">$</span>response</span>)) 
 { 
-fputs($this-&gt;sock, "QUIT\r\n"); 
-fgets($this-&gt;sock, 512); 
-$this-&gt;log_write("Error: Remote host returned \"".$response."\"\n"); 
-return FALSE; 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-s">"<span class="pl-s">QUIT</span>\r\n"</span>); 
+<span class="pl-en">fgets</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-c1">512</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Remote host returned </span>\""</span>.<span class="pl-s1"><span class="pl-c1">$</span>response</span>.<span class="pl-s">"\"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-return TRUE; 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-function smtp_putcmd($cmd, $arg = "") 
+<span class="pl-k">function</span> <span class="pl-en">smtp_putcmd</span>(<span class="pl-s1"><span class="pl-c1">$</span>cmd</span>, <span class="pl-s1"><span class="pl-c1">$</span>arg</span> = <span class="pl-s">""</span>) 
 { 
-if ($arg != "") 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span>arg</span> != <span class="pl-s">""</span>) 
 { 
-if($cmd=="") 
+<span class="pl-k">if</span>(<span class="pl-s1"><span class="pl-c1">$</span>cmd</span>==<span class="pl-s">""</span>) 
 { 
-$cmd = $arg; 
+<span class="pl-s1"><span class="pl-c1">$</span>cmd</span> = <span class="pl-s1"><span class="pl-c1">$</span>arg</span>; 
 } 
-else 
+<span class="pl-k">else</span> 
 { 
-$cmd = $cmd." ".$arg; 
+<span class="pl-s1"><span class="pl-c1">$</span>cmd</span> = <span class="pl-s1"><span class="pl-c1">$</span>cmd</span>.<span class="pl-s">"<span class="pl-s"> </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>arg</span>; 
 } 
 } 
-fputs($this-&gt;sock, $cmd."\r\n"); 
-$this-&gt;smtp_debug("&gt; ".$cmd."\n"); 
-return $this-&gt;smtp_ok(); 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">sock</span>, <span class="pl-s1"><span class="pl-c1">$</span>cmd</span>.<span class="pl-s">"\r\n"</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s">"<span class="pl-s">&gt; </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>cmd</span>.<span class="pl-s">"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_ok</span>(); 
 } 
-function smtp_error($string) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_error</span>(<span class="pl-s1"><span class="pl-c1">$</span>string</span>) 
 { 
-$this-&gt;log_write("Error: Error occurred while ".$string.".\n"); 
-return FALSE; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">log_write</span>(<span class="pl-s">"<span class="pl-s">Error: Error occurred while </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>string</span>.<span class="pl-s">"<span class="pl-s">.</span>\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>; 
 } 
-function log_write($message) 
+<span class="pl-k">function</span> <span class="pl-en">log_write</span>(<span class="pl-s1"><span class="pl-c1">$</span>message</span>) 
 { 
-$this-&gt;smtp_debug($message); 
-if ($this-&gt;log_file == "") 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s1"><span class="pl-c1">$</span>message</span>); 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span> == <span class="pl-s">""</span>) 
 { 
-return TRUE; 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-$message = date("M d H:i:s ").get_current_user()."[".getmypid()."]: ".$message; 
-if (!@file_exists($this-&gt;log_file) || !($fp = @fopen($this-&gt;log_file, "a"))) 
+<span class="pl-s1"><span class="pl-c1">$</span>message</span> = <span class="pl-en">date</span>(<span class="pl-s">"<span class="pl-s">M d H:i:s </span>"</span>).<span class="pl-en">get_current_user</span>().<span class="pl-s">"<span class="pl-s">[</span>"</span>.<span class="pl-en">getmypid</span>().<span class="pl-s">"<span class="pl-s">]: </span>"</span>.<span class="pl-s1"><span class="pl-c1">$</span>message</span>; 
+<span class="pl-k">if</span> (!@<span class="pl-en">file_exists</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span>) || !(<span class="pl-s1"><span class="pl-c1">$</span>fp</span> = @<span class="pl-en">fopen</span>(<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span>, <span class="pl-s">"<span class="pl-s">a</span>"</span>))) 
 { 
-$this-&gt;smtp_debug("Warning: Cannot open log file \"".$this-&gt;log_file."\"\n"); 
-return FALSE;; 
+<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-en">smtp_debug</span>(<span class="pl-s">"<span class="pl-s">Warning: Cannot open log file </span>\""</span>.<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">log_file</span>.<span class="pl-s">"\"\n"</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">FALSE</span>;; 
 } 
-flock($fp, LOCK_EX); 
-fputs($fp, $message); 
-fclose($fp); 
-return TRUE; 
+<span class="pl-en">flock</span>(<span class="pl-s1"><span class="pl-c1">$</span>fp</span>, <span class="pl-c1">LOCK_EX</span>); 
+<span class="pl-en">fputs</span>(<span class="pl-s1"><span class="pl-c1">$</span>fp</span>, <span class="pl-s1"><span class="pl-c1">$</span>message</span>); 
+<span class="pl-en">fclose</span>(<span class="pl-s1"><span class="pl-c1">$</span>fp</span>); 
+<span class="pl-k">return</span> <span class="pl-c1">TRUE</span>; 
 } 
-function strip_comment($address) 
+<span class="pl-k">function</span> <span class="pl-en">strip_comment</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>) 
 { 
-$comment = "\([^()]*\)"; 
-while (ereg($comment, $address)) 
+<span class="pl-s1"><span class="pl-c1">$</span>comment</span> = <span class="pl-s">"<span class="pl-s">\([^()]*\)</span>"</span>; 
+<span class="pl-k">while</span> (<span class="pl-en">ereg</span>(<span class="pl-s1"><span class="pl-c1">$</span>comment</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>)) 
 { 
-$address = ereg_replace($comment, "", $address); 
+<span class="pl-s1"><span class="pl-c1">$</span>address</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s1"><span class="pl-c1">$</span>comment</span>, <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
 } 
-return $address; 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>address</span>; 
 } 
-function get_address($address) 
+<span class="pl-k">function</span> <span class="pl-en">get_address</span>(<span class="pl-s1"><span class="pl-c1">$</span>address</span>) 
 { 
-$address = ereg_replace("([ \t\r\n])+", "", $address); 
-$address = ereg_replace("^.*&lt;(.+)&gt;.*$", "\1", $address); 
-return $address; 
+<span class="pl-s1"><span class="pl-c1">$</span>address</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s">"<span class="pl-s">([ </span>\t\r\n<span class="pl-s">])+</span>"</span>, <span class="pl-s">""</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
+<span class="pl-s1"><span class="pl-c1">$</span>address</span> = <span class="pl-en">ereg_replace</span>(<span class="pl-s">"<span class="pl-s">^.*&lt;(.+)&gt;.*$</span>"</span>, <span class="pl-s">"\1"</span>, <span class="pl-s1"><span class="pl-c1">$</span>address</span>); 
+<span class="pl-k">return</span> <span class="pl-s1"><span class="pl-c1">$</span>address</span>; 
 } 
-function smtp_debug($message) 
+<span class="pl-k">function</span> <span class="pl-en">smtp_debug</span>(<span class="pl-s1"><span class="pl-c1">$</span>message</span>) 
 { 
-if ($this-&gt;debug) 
+<span class="pl-k">if</span> (<span class="pl-s1"><span class="pl-c1">$</span><span class="pl-smi">this</span></span>-&gt;<span class="pl-c1">debug</span>) 
 { 
-//echo $message; 
+<span class="pl-c">//echo $message; </span>
 } 
 } 
 } 
-?&gt;
-</code></pre>
+<span class="pl-ent">?&gt;</span></pre></div>
 <p>完成</p>
 <blockquote>
 <p>代码来源于网络，仅记录，未测试</p>
@@ -1870,7 +1877,7 @@ if("03/30/2024"!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -1943,7 +1950,70 @@ function iFrameLoading(){
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
 
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
 
 </script>
 <script>document.getElementById('cmButton').click();</script>
